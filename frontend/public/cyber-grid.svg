@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <radialGradient id="dotGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <!-- Grid lines -->
+  <line x1="0" y1="0" x2="120" y2="0" stroke="rgba(255,255,255,0.035)" stroke-width="1" />
+  <line x1="0" y1="0" x2="0" y2="120" stroke="rgba(255,255,255,0.035)" stroke-width="1" />
+  <line x1="60" y1="0" x2="60" y2="120" stroke="rgba(255,255,255,0.015)" stroke-width="0.5" stroke-dasharray="2,2" />
+  <line x1="0" y1="60" x2="120" y2="60" stroke="rgba(255,255,255,0.015)" stroke-width="0.5" stroke-dasharray="2,2" />
+  
+  <!-- Corner tactical crosshairs -->
+  <path d="M 0 6 L 0 0 L 6 0" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1" fill="none" />
+  <path d="M 114 0 L 120 0 L 120 6" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1" fill="none" />
+  <path d="M 0 114 L 0 120 L 6 120" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1" fill="none" />
+  <path d="M 114 120 L 120 120 L 120 114" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1" fill="none" />
+
+  <!-- Center node intersection -->
+  <circle cx="60" cy="60" r="4" fill="url(#dotGlow)" />
+  <circle cx="60" cy="60" r="1" fill="rgba(6, 182, 212, 0.4)" />
+</svg>
+

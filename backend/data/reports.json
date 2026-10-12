@@ -1,0 +1,104 @@
+[
+  {
+    "id": "rep_101",
+    "scam_type": "UPI Payment Scam",
+    "title": "OLX Buyer Reverse Charge QR Fraud",
+    "description": "Buyer on OLX agreed to buy furniture without bargaining. Sent a QR code claiming 'Scan this to receive advance token of \u20b95,000'. Entering UPI PIN deducted \u20b95,000 instead!",
+    "phone": "+91 98765-43210",
+    "url": null,
+    "recipient": "olx-advance-settlement@okaxis",
+    "risk_level": "Critical",
+    "indicators": [
+      "Fake Buyer",
+      "Reverse UPI Charge",
+      "Urgent Payment Request",
+      "QR Code Trap"
+    ],
+    "frequency": 38,
+    "upvotes": 142,
+    "created_at": "2026-10-02T15:20:00Z",
+    "verified": true,
+    "_id": "rep_101"
+  },
+  {
+    "id": "rep_102",
+    "scam_type": "Banking Scams",
+    "title": "HDFC KYC Pan Card Expiry SMS",
+    "description": "Received SMS claiming: 'Dear customer, your HDFC bank account is blocked. Update PAN card now at hdfc-netbanking-alert.xyz to avoid \u20b95,000 fine'.",
+    "phone": "+91 88901-23456",
+    "url": "http://hdfc-netbanking-alert.xyz",
+    "recipient": null,
+    "risk_level": "Critical",
+    "indicators": [
+      "Bank Impersonation",
+      "PAN/KYC Update Trap",
+      "High-Abuse TLD",
+      "Threat of Fine"
+    ],
+    "frequency": 86,
+    "upvotes": 254,
+    "created_at": "2026-10-03T10:15:00Z",
+    "verified": true,
+    "_id": "rep_102"
+  },
+  {
+    "id": "rep_103",
+    "scam_type": "Delivery Scams",
+    "title": "India Post Parcel Address Incomplete",
+    "description": "SMS arrived from +91-7002-XXXX saying package arrived at central hub but street number missing. Demanded \u20b935 address update fee on fake indiapost-tracking.top portal.",
+    "phone": "+91 70023-98124",
+    "url": "https://indiapost-tracking.top/fee",
+    "recipient": "speedpost-desk@ybl",
+    "risk_level": "High",
+    "indicators": [
+      "Postal Courier Impersonation",
+      "Micro fee credit card skimmer",
+      "Disposable .top domain"
+    ],
+    "frequency": 64,
+    "upvotes": 198,
+    "created_at": "2026-10-03T18:40:00Z",
+    "verified": true,
+    "_id": "rep_103"
+  },
+  {
+    "id": "rep_104",
+    "scam_type": "Government Impersonation",
+    "title": "Electricity Bill Disconnection Threat Tonight",
+    "description": "Text message: 'Dear consumer, electricity bill not updated. Power will be disconnected tonight at 9:30 PM. Call electricity officer at 98234-XXXX immediately'.",
+    "phone": "+91 98234-55123",
+    "url": null,
+    "recipient": "bijli-office90@paytm",
+    "risk_level": "Critical",
+    "indicators": [
+      "Utility Bill Extortion",
+      "Imminent Power Disconnection Threat",
+      "Unofficial Mobile Contact"
+    ],
+    "frequency": 112,
+    "upvotes": 389,
+    "created_at": "2026-10-04T08:00:00Z",
+    "verified": true,
+    "_id": "rep_104"
+  },
+  {
+    "id": "rep_105",
+    "scam_type": "Job Scams",
+    "title": "Telegram Movie Review Part-Time Job",
+    "description": "Recruiter contacted offering \u20b92,000 daily for rating movies on Google. Gave \u20b9150 for first task, then asked for \u20b93,000 VIP deposit on crypto platform before disappearing.",
+    "phone": "+44 7890 123456",
+    "url": "https://vip-task-movie-rating.xyz",
+    "recipient": "vip-merchants@usdt",
+    "risk_level": "High",
+    "indicators": [
+      "Telegram Recruiter",
+      "Small Initial Bait Payout",
+      "Prepaid VIP Task Scam"
+    ],
+    "frequency": 49,
+    "upvotes": 170,
+    "created_at": "2026-10-04T09:30:00Z",
+    "verified": true,
+    "_id": "rep_105"
+  }
+]

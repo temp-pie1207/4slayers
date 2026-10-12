@@ -1,0 +1,1008 @@
+[
+  {
+    "id": "2e99778b-7110-441c-a6a4-b9046f3a9217",
+    "user_id": "anonymous",
+    "type": "message",
+    "input_summary": "Your SBI account is suspended! Update KYC at http://sbi-secure.xyz immediately to prevent police action.",
+    "raw_input": {
+      "content": "Your SBI account is suspended! Update KYC at http://sbi-secure.xyz immediately to prevent police action.",
+      "sender_info": null
+    },
+    "risk_score": 99,
+    "risk_level": "Critical Risk",
+    "breakdown": {
+      "message_analysis": 98,
+      "url_analysis": 94,
+      "behavior_analysis": 75,
+      "known_patterns": 90.0,
+      "network_signals": 80.0
+    },
+    "signals": [
+      {
+        "signal": "urgency_manipulation",
+        "severity": 0.8,
+        "category": "Behavioral",
+        "reason": "High psychological pressure detected using urgency trigger words: immediately, suspended",
+        "level": "high"
+      },
+      {
+        "signal": "credential_solicitation",
+        "severity": 0.92,
+        "category": "Credential Harvesting",
+        "reason": "Solicits sensitive financial or identity verification data (kyc, update kyc)",
+        "level": "high"
+      },
+      {
+        "signal": "authority_intimidation",
+        "severity": 0.95,
+        "category": "Impersonation & Fear",
+        "reason": "Severe coercive pressure impersonating enforcement authority (police)",
+        "level": "high"
+      },
+      {
+        "signal": "entity_impersonation",
+        "severity": 0.85,
+        "category": "Impersonation",
+        "reason": "Message poses as communications from State Bank of India (SBI)",
+        "level": "high"
+      },
+      {
+        "signal": "unsolicited_embedded_link",
+        "severity": 0.75,
+        "category": "Link Injection",
+        "reason": "Contains embedded external link (http://sbi-secure.xyz...) prompting off-platform redirection",
+        "level": "medium"
+      },
+      {
+        "signal": "time_pressure",
+        "severity": 0.75,
+        "category": "Time Pressure Manipulation",
+        "reason": "Artificially compresses decision time to bypass critical thinking and analytical hesitation. Detected cues: immediately",
+        "level": "medium"
+      },
+      {
+        "signal": "fear_intimidation",
+        "severity": 0.75,
+        "category": "Fear & Intimidation Induction",
+        "reason": "Induces panic by threatening punitive legal, financial, or service termination consequences. Detected cues: police",
+        "level": "high"
+      },
+      {
+        "signal": "high_risk_tld",
+        "severity": 0.8,
+        "category": "Domain Reputation",
+        "reason": "Uses high-abuse top-level domain '.xyz' frequently associated with automated throwaway infrastructure",
+        "level": "high"
+      },
+      {
+        "signal": "brand_typosquatting",
+        "severity": 0.94,
+        "category": "Brand Impersonation",
+        "reason": "Domain spoofing brand name 'SBI' with deceptive naming syntax (sbi-secure.xyz)",
+        "level": "high"
+      },
+      {
+        "signal": "unencrypted_http_protocol",
+        "severity": 0.55,
+        "category": "Protocol Security",
+        "reason": "Cleartext HTTP protocol without SSL/TLS encryption",
+        "level": "low"
+      }
+    ],
+    "explanations": {
+      "simple": [
+        "This communication falsely claims to be from State Bank of India (SBI) to make you trust it.",
+        "It uses alarming words like 'blocked', 'immediate', or 'urgent' to make you panic and react quickly.",
+        "It asks for your secret PIN, password, OTP, or KYC documents. Real banks never ask for these via text or unsolicited links.",
+        "The web link is not an official address. It hides where you are going or uses a deceptive copycat address."
+      ],
+      "technical": [
+        "Entity impersonation signature detected against verified domain/sender whitelist for 'State Bank of India (SBI)'.",
+        "NLP lexical urgency score exceeded threshold (0.75+), indicating artificial time compression.",
+        "Identified explicit credential-solicitation tokens targeting high-value authentication credentials (OTP/PIN/CVV).",
+        "Domain heuristic alert: shortened URI or deceptive TLD/homograph divergence from legitimate brand registrar."
+      ],
+      "verdict_summary": "Critical scam threat detected! High likelihood of State Bank of India (SBI) impersonation fraud.",
+      "impersonated_entity": "State Bank of India (SBI)"
+    },
+    "scam_dna": {
+      "nodes": [
+        {
+          "id": "node_source",
+          "label": "Inbound MESSAGE",
+          "type": "message",
+          "risk": 0.98,
+          "details": "Your SBI account is suspended! Update KYC at http://sbi-secu..."
+        },
+        {
+          "id": "node_url",
+          "label": "Link: http://sbi-secure.xyz...",
+          "type": "url",
+          "risk": 0.9,
+          "details": "Target endpoint: http://sbi-secure.xyz"
+        },
+        {
+          "id": "node_domain",
+          "label": "Host: http",
+          "type": "domain",
+          "risk": 0.88,
+          "details": "Suspicious registration zone: http"
+        },
+        {
+          "id": "node_brand",
+          "label": "Spoofed: State Bank of India (SBI)",
+          "type": "victim",
+          "risk": 0.95,
+          "details": "Legitimate brand spoofed: State Bank of India (SBI)"
+        },
+        {
+          "id": "node_pattern",
+          "label": "Campaign: State Bank of India (SBI) Impersonation Phishing Campaign",
+          "type": "pattern",
+          "risk": 0.89,
+          "details": "Correlates with signature 'State Bank of India (SBI) Impersonation Phishing Campaign'"
+        }
+      ],
+      "links": [
+        {
+          "source": "node_source",
+          "target": "node_url",
+          "relationship": "contains_hyperlink",
+          "weight": 0.9
+        },
+        {
+          "source": "node_url",
+          "target": "node_domain",
+          "relationship": "resolves_to_host",
+          "weight": 0.85
+        },
+        {
+          "source": "node_source",
+          "target": "node_brand",
+          "relationship": "impersonates_identity",
+          "weight": 0.95
+        },
+        {
+          "source": "node_source",
+          "target": "node_pattern",
+          "relationship": "matches_signature",
+          "weight": 0.88
+        }
+      ],
+      "confidence_multiplier": 1.38,
+      "cluster_pattern": "Complex Multi-Vector Syndicate Campaign"
+    },
+    "next_moves": [
+      {
+        "action": "User redirected to a cloned, fake login or KYC portal",
+        "confidence": 92,
+        "timeline": "Immediate (upon clicking the link)",
+        "detail": "A counterfeit replica of the official institution's portal designed to log keystrokes."
+      },
+      {
+        "action": "Attacker will request an OTP or 2FA authentication code",
+        "confidence": 88,
+        "timeline": "Within 1 to 3 minutes",
+        "detail": "Fraudster triggers a live login attempt on real banking portal and prompts victim for incoming OTP."
+      },
+      {
+        "action": "Victim receives an automated or urgent follow-up voice call",
+        "confidence": 74,
+        "timeline": "Within 10 to 30 minutes",
+        "detail": "A caller posing as a fraud investigator or customer care agent to reinforce the panic and demand immediate action."
+      }
+    ],
+    "recommended_actions": [
+      {
+        "step": 1,
+        "title": "Do not click the link or scan the QR code",
+        "instruction": "Avoid opening any embedded hyperlinks, downloading attachments, or scanning QR codes from this source.",
+        "priority": "critical",
+        "icon_type": "ban"
+      },
+      {
+        "step": 2,
+        "title": "Never share OTP, PIN, password, or CVV",
+        "instruction": "Legitimate banks and government agencies will never ask for your secret verification code, PIN, or netbanking password.",
+        "priority": "critical",
+        "icon_type": "shield-alert"
+      },
+      {
+        "step": 3,
+        "title": "Stop all communication immediately",
+        "instruction": "Do not reply to the message, answer incoming calls, or confront the sender. Block the sender number.",
+        "priority": "high",
+        "icon_type": "phone-off"
+      },
+      {
+        "step": 4,
+        "title": "Verify through official verified channels only",
+        "instruction": "If in doubt, call the official customer care number printed directly on the back of your debit card or official website.",
+        "priority": "high",
+        "icon_type": "check-circle"
+      },
+      {
+        "step": 5,
+        "title": "Report incident to 4SLAYERS Community & Cyber Cell",
+        "instruction": "Submit this incident to the 4SLAYERS Scam Intelligence database and your national cyber crime portal (e.g. cybercrime.gov.in / IC3).",
+        "priority": "medium",
+        "icon_type": "flag"
+      },
+      {
+        "step": 6,
+        "title": "If money was already transferred: act immediately",
+        "instruction": "Call your bank's 24/7 fraud helpline right away to block your card, freeze the beneficiary transaction, and lodge a dispute.",
+        "priority": "critical",
+        "icon_type": "alert-triangle"
+      }
+    ],
+    "created_at": "2026-10-04T07:44:10.820724",
+    "is_demo": false,
+    "_id": "2e99778b-7110-441c-a6a4-b9046f3a9217"
+  },
+  {
+    "id": "5f0a3cae-e88c-48f3-a128-9e7d729b9313",
+    "user_id": "anonymous",
+    "type": "url",
+    "input_summary": "http://chase-bank-verify-auth.xyz/login",
+    "raw_input": {
+      "url": "http://chase-bank-verify-auth.xyz/login",
+      "context": null
+    },
+    "risk_score": 85,
+    "risk_level": "Critical Risk",
+    "breakdown": {
+      "message_analysis": 20.0,
+      "url_analysis": 98,
+      "behavior_analysis": 10,
+      "known_patterns": 88.0,
+      "network_signals": 75.0
+    },
+    "signals": [
+      {
+        "signal": "high_risk_tld",
+        "severity": 0.8,
+        "category": "Domain Reputation",
+        "reason": "Uses high-abuse top-level domain '.xyz' frequently associated with automated throwaway infrastructure",
+        "level": "high"
+      },
+      {
+        "signal": "brand_typosquatting",
+        "severity": 0.94,
+        "category": "Brand Impersonation",
+        "reason": "Domain spoofing brand name 'CHASE' with deceptive naming syntax (chase-bank-verify-auth.xyz)",
+        "level": "high"
+      },
+      {
+        "signal": "credential_harvesting_path",
+        "severity": 0.78,
+        "category": "Targeting",
+        "reason": "URL endpoint contains credential harvesting triggers: login",
+        "level": "medium"
+      },
+      {
+        "signal": "unencrypted_http_protocol",
+        "severity": 0.55,
+        "category": "Protocol Security",
+        "reason": "Cleartext HTTP protocol without SSL/TLS encryption",
+        "level": "low"
+      }
+    ],
+    "explanations": {
+      "simple": [
+        "This communication falsely claims to be from chase to make you trust it.",
+        "It asks for your secret PIN, password, OTP, or KYC documents. Real banks never ask for these via text or unsolicited links.",
+        "The web link is not an official address. It hides where you are going or uses a deceptive copycat address."
+      ],
+      "technical": [
+        "Entity impersonation signature detected against verified domain/sender whitelist for 'chase'.",
+        "Identified explicit credential-solicitation tokens targeting high-value authentication credentials (OTP/PIN/CVV).",
+        "Domain heuristic alert: shortened URI or deceptive TLD/homograph divergence from legitimate brand registrar."
+      ],
+      "verdict_summary": "Critical scam threat detected! High likelihood of chase impersonation fraud.",
+      "impersonated_entity": "chase"
+    },
+    "scam_dna": {
+      "nodes": [
+        {
+          "id": "node_source",
+          "label": "Inbound URL",
+          "type": "url",
+          "risk": 0.98,
+          "details": "http://chase-bank-verify-auth.xyz/login"
+        },
+        {
+          "id": "node_url",
+          "label": "Link: http://chase-bank-verify-aut...",
+          "type": "url",
+          "risk": 0.9,
+          "details": "Target endpoint: http://chase-bank-verify-auth.xyz/login"
+        },
+        {
+          "id": "node_domain",
+          "label": "Host: chase-bank-verify-auth.xyz",
+          "type": "domain",
+          "risk": 0.88,
+          "details": "Suspicious registration zone: chase-bank-verify-auth.xyz"
+        },
+        {
+          "id": "node_brand",
+          "label": "Spoofed: chase",
+          "type": "victim",
+          "risk": 0.95,
+          "details": "Legitimate brand spoofed: chase"
+        },
+        {
+          "id": "node_pattern",
+          "label": "Campaign: Typosquatting Phishing Gateway (chase)",
+          "type": "pattern",
+          "risk": 0.89,
+          "details": "Correlates with signature 'Typosquatting Phishing Gateway (chase)'"
+        }
+      ],
+      "links": [
+        {
+          "source": "node_source",
+          "target": "node_url",
+          "relationship": "contains_hyperlink",
+          "weight": 0.9
+        },
+        {
+          "source": "node_url",
+          "target": "node_domain",
+          "relationship": "resolves_to_host",
+          "weight": 0.85
+        },
+        {
+          "source": "node_source",
+          "target": "node_brand",
+          "relationship": "impersonates_identity",
+          "weight": 0.95
+        },
+        {
+          "source": "node_source",
+          "target": "node_pattern",
+          "relationship": "matches_signature",
+          "weight": 0.88
+        }
+      ],
+      "confidence_multiplier": 1.38,
+      "cluster_pattern": "Complex Multi-Vector Syndicate Campaign"
+    },
+    "next_moves": [
+      {
+        "action": "User redirected to a cloned, fake login or KYC portal",
+        "confidence": 92,
+        "timeline": "Immediate (upon clicking the link)",
+        "detail": "A counterfeit replica of the official institution's portal designed to log keystrokes."
+      },
+      {
+        "action": "Attacker will request an OTP or 2FA authentication code",
+        "confidence": 88,
+        "timeline": "Within 1 to 3 minutes",
+        "detail": "Fraudster triggers a live login attempt on real banking portal and prompts victim for incoming OTP."
+      },
+      {
+        "action": "Victim receives an automated or urgent follow-up voice call",
+        "confidence": 74,
+        "timeline": "Within 10 to 30 minutes",
+        "detail": "A caller posing as a fraud investigator or customer care agent to reinforce the panic and demand immediate action."
+      }
+    ],
+    "recommended_actions": [
+      {
+        "step": 1,
+        "title": "Do not click the link or scan the QR code",
+        "instruction": "Avoid opening any embedded hyperlinks, downloading attachments, or scanning QR codes from this source.",
+        "priority": "critical",
+        "icon_type": "ban"
+      },
+      {
+        "step": 2,
+        "title": "Never share OTP, PIN, password, or CVV",
+        "instruction": "Legitimate banks and government agencies will never ask for your secret verification code, PIN, or netbanking password.",
+        "priority": "critical",
+        "icon_type": "shield-alert"
+      },
+      {
+        "step": 3,
+        "title": "Stop all communication immediately",
+        "instruction": "Do not reply to the message, answer incoming calls, or confront the sender. Block the sender number.",
+        "priority": "high",
+        "icon_type": "phone-off"
+      },
+      {
+        "step": 4,
+        "title": "Verify through official verified channels only",
+        "instruction": "If in doubt, call the official customer care number printed directly on the back of your debit card or official website.",
+        "priority": "high",
+        "icon_type": "check-circle"
+      },
+      {
+        "step": 5,
+        "title": "Report incident to 4SLAYERS Community & Cyber Cell",
+        "instruction": "Submit this incident to the 4SLAYERS Scam Intelligence database and your national cyber crime portal (e.g. cybercrime.gov.in / IC3).",
+        "priority": "medium",
+        "icon_type": "flag"
+      },
+      {
+        "step": 6,
+        "title": "If money was already transferred: act immediately",
+        "instruction": "Call your bank's 24/7 fraud helpline right away to block your card, freeze the beneficiary transaction, and lodge a dispute.",
+        "priority": "critical",
+        "icon_type": "alert-triangle"
+      }
+    ],
+    "created_at": "2026-10-04T07:44:10.845974",
+    "is_demo": false,
+    "_id": "5f0a3cae-e88c-48f3-a128-9e7d729b9313"
+  },
+  {
+    "id": "8eeea56a-29f3-41b9-bb04-1d18840d9338",
+    "user_id": "anonymous",
+    "type": "phone",
+    "input_summary": "Phone: +919876543210 | Caller: HDFC Fraud Support",
+    "raw_input": {
+      "phone_number": "+919876543210",
+      "caller_name": "HDFC Fraud Support",
+      "call_type": "call"
+    },
+    "risk_score": 27,
+    "risk_level": "Low Risk",
+    "breakdown": {
+      "message_analysis": 25.0,
+      "url_analysis": 10.0,
+      "behavior_analysis": 42.5,
+      "known_patterns": 20.0,
+      "network_signals": 20.0
+    },
+    "signals": [
+      {
+        "signal": "unofficial_caller_id_impersonation",
+        "severity": 0.89,
+        "category": "Caller ID Spoofing",
+        "reason": "Caller claims to represent 'HDFC Fraud Support', but originates from an unverified private cellular line",
+        "level": "high"
+      }
+    ],
+    "explanations": {
+      "simple": [
+        "No immediate fraud or phishing patterns were detected in this input."
+      ],
+      "technical": [
+        "All NLP, domain reputation, and behavioral indicators returned benign values below baseline thresholds."
+      ],
+      "verdict_summary": "Safe / Low Risk. Normal communication pattern detected.",
+      "impersonated_entity": "HDFC Fraud Support"
+    },
+    "scam_dna": {
+      "nodes": [
+        {
+          "id": "node_source",
+          "label": "Inbound PHONE",
+          "type": "phone",
+          "risk": 0.5,
+          "details": "+919876543210 (HDFC Fraud Support)"
+        },
+        {
+          "id": "node_phone",
+          "label": "Origin: +919876543210",
+          "type": "phone",
+          "risk": 0.4,
+          "details": "Unregistered telecom routing (+919876543210)"
+        },
+        {
+          "id": "node_brand",
+          "label": "Spoofed: HDFC Fraud Support",
+          "type": "victim",
+          "risk": 0.95,
+          "details": "Legitimate brand spoofed: HDFC Fraud Support"
+        },
+        {
+          "id": "node_pattern",
+          "label": "Campaign: Cold-Call Telecom Impersonation Syndicate",
+          "type": "pattern",
+          "risk": 0.2,
+          "details": "Correlates with signature 'Cold-Call Telecom Impersonation Syndicate'"
+        }
+      ],
+      "links": [
+        {
+          "source": "node_source",
+          "target": "node_phone",
+          "relationship": "originates_from",
+          "weight": 0.85
+        },
+        {
+          "source": "node_source",
+          "target": "node_brand",
+          "relationship": "impersonates_identity",
+          "weight": 0.95
+        },
+        {
+          "source": "node_source",
+          "target": "node_pattern",
+          "relationship": "matches_signature",
+          "weight": 0.88
+        }
+      ],
+      "confidence_multiplier": 1.2,
+      "cluster_pattern": "Correlated Dual-Channel Threat Vector"
+    },
+    "next_moves": [
+      {
+        "action": "Standard legitimate recipient workflow",
+        "confidence": 95,
+        "timeline": "Standard",
+        "detail": "Expected routine communication with no malicious redirection sequence identified."
+      }
+    ],
+    "recommended_actions": [
+      {
+        "step": 1,
+        "title": "Safe communication",
+        "instruction": "Nothing suspicious was detected, but continue to practice standard cybersecurity hygiene.",
+        "priority": "preventive",
+        "icon_type": "shield-check"
+      }
+    ],
+    "created_at": "2026-10-04T07:44:10.859143",
+    "is_demo": false,
+    "_id": "8eeea56a-29f3-41b9-bb04-1d18840d9338"
+  },
+  {
+    "id": "fa0542b3-6f9f-455c-97bb-0bd948765ee0",
+    "user_id": "anonymous",
+    "type": "transaction",
+    "input_summary": "Transaction: $450.00 (UPI) -> court-fine@okaxis",
+    "raw_input": {
+      "amount": 450.0,
+      "recipient": "court-fine@okaxis",
+      "payment_method": "UPI",
+      "description": "Court Fine to stop police arrest"
+    },
+    "risk_score": 54,
+    "risk_level": "Medium Risk",
+    "breakdown": {
+      "message_analysis": 30.0,
+      "url_analysis": 10.0,
+      "behavior_analysis": 45,
+      "known_patterns": 92.0,
+      "network_signals": 85.0
+    },
+    "signals": [
+      {
+        "signal": "direct_peer_to_peer_transfer",
+        "severity": 0.7,
+        "category": "Settlement Mechanism",
+        "reason": "Direct instantaneous settlement to individual account without escrow safeguards",
+        "level": "medium"
+      },
+      {
+        "signal": "advance_fee_coercion_context",
+        "severity": 0.9,
+        "category": "Transaction Purpose",
+        "reason": "Memo contains advance-fee or penalty coercion keyword: 'fine'",
+        "level": "high"
+      },
+      {
+        "signal": "personal_account_for_official_fee",
+        "severity": 0.96,
+        "category": "Recipient Integrity",
+        "reason": "Official fee/penalty claimed in description, but payment is routed to personal account 'court-fine@okaxis'",
+        "level": "high"
+      },
+      {
+        "signal": "fear_intimidation",
+        "severity": 0.95,
+        "category": "Fear & Intimidation Induction",
+        "reason": "Induces panic by threatening punitive legal, financial, or service termination consequences. Detected cues: police, arrest, court",
+        "level": "high"
+      }
+    ],
+    "explanations": {
+      "simple": [
+        "Contains some unusual phrasing or unverified links that warrant caution."
+      ],
+      "technical": [
+        "Medium-tier threat score: Low-to-moderate heuristic triggers without definitive credential harvesting."
+      ],
+      "verdict_summary": "Moderate risk. Exercise caution before clicking or replying.",
+      "impersonated_entity": null
+    },
+    "scam_dna": {
+      "nodes": [
+        {
+          "id": "node_source",
+          "label": "Inbound TRANSACTION",
+          "type": "transaction",
+          "risk": 0.98,
+          "details": "Payment of 450.0 via UPI to court-fine@okaxis"
+        },
+        {
+          "id": "node_payment",
+          "label": "Payee: court-fine@okaxis",
+          "type": "payment",
+          "risk": 0.92,
+          "details": "Designated beneficiary account: court-fine@okaxis"
+        },
+        {
+          "id": "node_pattern",
+          "label": "Campaign: Advance-Fee / Legal Penalty Extortion",
+          "type": "pattern",
+          "risk": 0.89,
+          "details": "Correlates with signature 'Advance-Fee / Legal Penalty Extortion'"
+        }
+      ],
+      "links": [
+        {
+          "source": "node_source",
+          "target": "node_payment",
+          "relationship": "demands_payment_to",
+          "weight": 0.92
+        },
+        {
+          "source": "node_source",
+          "target": "node_pattern",
+          "relationship": "matches_signature",
+          "weight": 0.88
+        }
+      ],
+      "confidence_multiplier": 1.2,
+      "cluster_pattern": "Correlated Dual-Channel Threat Vector"
+    },
+    "next_moves": [
+      {
+        "action": "Potential promotional redirect or subscription opt-in trap",
+        "confidence": 65,
+        "timeline": "Upon interaction",
+        "detail": "User may be prompted for email/phone number to receive spam marketing or unwanted subscriptions."
+      }
+    ],
+    "recommended_actions": [
+      {
+        "step": 1,
+        "title": "Proceed with caution",
+        "instruction": "Verify the sender before opening links or downloading files.",
+        "priority": "medium",
+        "icon_type": "alert-circle"
+      },
+      {
+        "step": 2,
+        "title": "Inspect the URL destination carefully",
+        "instruction": "Look at the browser address bar to ensure the domain matches the official website.",
+        "priority": "medium",
+        "icon_type": "search"
+      }
+    ],
+    "created_at": "2026-10-04T07:44:10.876240",
+    "is_demo": false,
+    "_id": "fa0542b3-6f9f-455c-97bb-0bd948765ee0"
+  },
+  {
+    "id": "bea763ef-3073-489d-ba7a-6fa7e5642a9f",
+    "user_id": "anonymous",
+    "type": "qr",
+    "input_summary": "QR Content: upi://pay?pa=olx-advance-token@okaxis&pn=Customer%20Refund&am=5000&cu=",
+    "raw_input": {
+      "qr_content": "upi://pay?pa=olx-advance-token@okaxis&pn=Customer%20Refund&am=5000&cu=INR"
+    },
+    "risk_score": 20,
+    "risk_level": "Low Risk",
+    "breakdown": {
+      "message_analysis": 20.0,
+      "url_analysis": 15.0,
+      "behavior_analysis": 36.0,
+      "known_patterns": 15.0,
+      "network_signals": 15.0
+    },
+    "signals": [
+      {
+        "signal": "unverified_merchant_qr",
+        "severity": 0.8,
+        "category": "Merchant Verification",
+        "reason": "Unverified payee entity claiming official role 'Customer Refund'",
+        "level": "high"
+      }
+    ],
+    "explanations": {
+      "simple": [
+        "No immediate fraud or phishing patterns were detected in this input."
+      ],
+      "technical": [
+        "All NLP, domain reputation, and behavioral indicators returned benign values below baseline thresholds."
+      ],
+      "verdict_summary": "Safe / Low Risk. Normal communication pattern detected.",
+      "impersonated_entity": null
+    },
+    "scam_dna": {
+      "nodes": [
+        {
+          "id": "node_source",
+          "label": "Inbound QR",
+          "type": "qr",
+          "risk": 0.4,
+          "details": "QR Payload: upi://pay?pa=olx-advance-token@okaxis&pn=Custome..."
+        },
+        {
+          "id": "node_pattern",
+          "label": "Campaign: Reverse-Charge UPI Quishing Scheme",
+          "type": "pattern",
+          "risk": 0.2,
+          "details": "Correlates with signature 'Reverse-Charge UPI Quishing Scheme'"
+        }
+      ],
+      "links": [
+        {
+          "source": "node_source",
+          "target": "node_pattern",
+          "relationship": "matches_signature",
+          "weight": 0.88
+        }
+      ],
+      "confidence_multiplier": 1.0,
+      "cluster_pattern": "Isolated Single-Signal Probe"
+    },
+    "next_moves": [
+      {
+        "action": "Standard legitimate recipient workflow",
+        "confidence": 95,
+        "timeline": "Standard",
+        "detail": "Expected routine communication with no malicious redirection sequence identified."
+      }
+    ],
+    "recommended_actions": [
+      {
+        "step": 1,
+        "title": "Safe communication",
+        "instruction": "Nothing suspicious was detected, but continue to practice standard cybersecurity hygiene.",
+        "priority": "preventive",
+        "icon_type": "shield-check"
+      }
+    ],
+    "created_at": "2026-10-04T07:54:49.722672",
+    "is_demo": false,
+    "_id": "bea763ef-3073-489d-ba7a-6fa7e5642a9f"
+  },
+  {
+    "id": "79760fd0-e05b-48b0-bb93-b6a99822093e",
+    "user_id": "7e1ad5bc-aad9-40f5-b7c1-2f82ac94b320",
+    "type": "message",
+    "input_summary": "Dear HDFC Customer, your NetBanking account will be suspended today due to pending KYC. Click http://hdfc-bank-verify-kyc.xyz/update to prevent block immediately.",
+    "raw_input": {
+      "content": "Dear HDFC Customer, your NetBanking account will be suspended today due to pending KYC. Click http://hdfc-bank-verify-kyc.xyz/update to prevent block immediately.",
+      "sender_info": "+91 98210-99411"
+    },
+    "risk_score": 99,
+    "risk_level": "Critical Risk",
+    "breakdown": {
+      "message_analysis": 98,
+      "url_analysis": 98,
+      "behavior_analysis": 40,
+      "known_patterns": 90.0,
+      "network_signals": 80.0
+    },
+    "signals": [
+      {
+        "signal": "urgency_manipulation",
+        "severity": 0.8,
+        "category": "Behavioral",
+        "reason": "High psychological pressure detected using urgency trigger words: immediately, suspended",
+        "level": "high"
+      },
+      {
+        "signal": "credential_solicitation",
+        "severity": 0.92,
+        "category": "Credential Harvesting",
+        "reason": "Solicits sensitive financial or identity verification data (kyc)",
+        "level": "high"
+      },
+      {
+        "signal": "entity_impersonation",
+        "severity": 0.85,
+        "category": "Impersonation",
+        "reason": "Message poses as communications from HDFC Bank",
+        "level": "high"
+      },
+      {
+        "signal": "sender_header_anomaly",
+        "severity": 0.88,
+        "category": "Header Spoofing",
+        "reason": "Sender ID '+91 98210-99411' does not correspond to genuine HDFC Bank communication headers",
+        "level": "high"
+      },
+      {
+        "signal": "unsolicited_embedded_link",
+        "severity": 0.75,
+        "category": "Link Injection",
+        "reason": "Contains embedded external link (http://hdfc-bank-verify-kyc.xyz/update...) prompting off-platform redirection",
+        "level": "medium"
+      },
+      {
+        "signal": "time_pressure",
+        "severity": 0.75,
+        "category": "Time Pressure Manipulation",
+        "reason": "Artificially compresses decision time to bypass critical thinking and analytical hesitation. Detected cues: immediately",
+        "level": "medium"
+      },
+      {
+        "signal": "high_risk_tld",
+        "severity": 0.8,
+        "category": "Domain Reputation",
+        "reason": "Uses high-abuse top-level domain '.xyz' frequently associated with automated throwaway infrastructure",
+        "level": "high"
+      },
+      {
+        "signal": "brand_typosquatting",
+        "severity": 0.94,
+        "category": "Brand Impersonation",
+        "reason": "Domain spoofing brand name 'HDFC' with deceptive naming syntax (hdfc-bank-verify-kyc.xyz)",
+        "level": "high"
+      },
+      {
+        "signal": "credential_harvesting_path",
+        "severity": 0.78,
+        "category": "Targeting",
+        "reason": "URL endpoint contains credential harvesting triggers: update",
+        "level": "medium"
+      },
+      {
+        "signal": "unencrypted_http_protocol",
+        "severity": 0.55,
+        "category": "Protocol Security",
+        "reason": "Cleartext HTTP protocol without SSL/TLS encryption",
+        "level": "low"
+      }
+    ],
+    "explanations": {
+      "simple": [
+        "This communication falsely claims to be from HDFC Bank to make you trust it.",
+        "It uses alarming words like 'blocked', 'immediate', or 'urgent' to make you panic and react quickly.",
+        "It asks for your secret PIN, password, OTP, or KYC documents. Real banks never ask for these via text or unsolicited links.",
+        "The web link is not an official address. It hides where you are going or uses a deceptive copycat address."
+      ],
+      "technical": [
+        "Entity impersonation signature detected against verified domain/sender whitelist for 'HDFC Bank'.",
+        "NLP lexical urgency score exceeded threshold (0.75+), indicating artificial time compression.",
+        "Identified explicit credential-solicitation tokens targeting high-value authentication credentials (OTP/PIN/CVV).",
+        "Domain heuristic alert: shortened URI or deceptive TLD/homograph divergence from legitimate brand registrar."
+      ],
+      "verdict_summary": "Critical scam threat detected! High likelihood of HDFC Bank impersonation fraud.",
+      "impersonated_entity": "HDFC Bank"
+    },
+    "scam_dna": {
+      "nodes": [
+        {
+          "id": "node_source",
+          "label": "Inbound MESSAGE",
+          "type": "message",
+          "risk": 0.98,
+          "details": "Dear HDFC Customer, your NetBanking account will be suspende..."
+        },
+        {
+          "id": "node_url",
+          "label": "Link: http://hdfc-bank-verify-kyc....",
+          "type": "url",
+          "risk": 0.9,
+          "details": "Target endpoint: http://hdfc-bank-verify-kyc.xyz/update"
+        },
+        {
+          "id": "node_domain",
+          "label": "Host: hdfc-bank-verify-kyc.xyz",
+          "type": "domain",
+          "risk": 0.88,
+          "details": "Suspicious registration zone: hdfc-bank-verify-kyc.xyz"
+        },
+        {
+          "id": "node_brand",
+          "label": "Spoofed: HDFC Bank",
+          "type": "victim",
+          "risk": 0.95,
+          "details": "Legitimate brand spoofed: HDFC Bank"
+        },
+        {
+          "id": "node_pattern",
+          "label": "Campaign: HDFC Bank Impersonation Phishing Campaign",
+          "type": "pattern",
+          "risk": 0.89,
+          "details": "Correlates with signature 'HDFC Bank Impersonation Phishing Campaign'"
+        }
+      ],
+      "links": [
+        {
+          "source": "node_source",
+          "target": "node_url",
+          "relationship": "contains_hyperlink",
+          "weight": 0.9
+        },
+        {
+          "source": "node_url",
+          "target": "node_domain",
+          "relationship": "resolves_to_host",
+          "weight": 0.85
+        },
+        {
+          "source": "node_source",
+          "target": "node_brand",
+          "relationship": "impersonates_identity",
+          "weight": 0.95
+        },
+        {
+          "source": "node_source",
+          "target": "node_pattern",
+          "relationship": "matches_signature",
+          "weight": 0.88
+        }
+      ],
+      "confidence_multiplier": 1.38,
+      "cluster_pattern": "Complex Multi-Vector Syndicate Campaign"
+    },
+    "next_moves": [
+      {
+        "action": "User redirected to a cloned, fake login or KYC portal",
+        "confidence": 92,
+        "timeline": "Immediate (upon clicking the link)",
+        "detail": "A counterfeit replica of the official institution's portal designed to log keystrokes."
+      },
+      {
+        "action": "Attacker will request an OTP or 2FA authentication code",
+        "confidence": 88,
+        "timeline": "Within 1 to 3 minutes",
+        "detail": "Fraudster triggers a live login attempt on real banking portal and prompts victim for incoming OTP."
+      },
+      {
+        "action": "Victim receives an automated or urgent follow-up voice call",
+        "confidence": 74,
+        "timeline": "Within 10 to 30 minutes",
+        "detail": "A caller posing as a fraud investigator or customer care agent to reinforce the panic and demand immediate action."
+      }
+    ],
+    "recommended_actions": [
+      {
+        "step": 1,
+        "title": "Do not click the link or scan the QR code",
+        "instruction": "Avoid opening any embedded hyperlinks, downloading attachments, or scanning QR codes from this source.",
+        "priority": "critical",
+        "icon_type": "ban"
+      },
+      {
+        "step": 2,
+        "title": "Never share OTP, PIN, password, or CVV",
+        "instruction": "Legitimate banks and government agencies will never ask for your secret verification code, PIN, or netbanking password.",
+        "priority": "critical",
+        "icon_type": "shield-alert"
+      },
+      {
+        "step": 3,
+        "title": "Stop all communication immediately",
+        "instruction": "Do not reply to the message, answer incoming calls, or confront the sender. Block the sender number.",
+        "priority": "high",
+        "icon_type": "phone-off"
+      },
+      {
+        "step": 4,
+        "title": "Verify through official verified channels only",
+        "instruction": "If in doubt, call the official customer care number printed directly on the back of your debit card or official website.",
+        "priority": "high",
+        "icon_type": "check-circle"
+      },
+      {
+        "step": 5,
+        "title": "Report incident to 4SLAYERS Community & Cyber Cell",
+        "instruction": "Submit this incident to the 4SLAYERS Scam Intelligence database and your national cyber crime portal (e.g. cybercrime.gov.in / IC3).",
+        "priority": "medium",
+        "icon_type": "flag"
+      },
+      {
+        "step": 6,
+        "title": "If money was already transferred: act immediately",
+        "instruction": "Call your bank's 24/7 fraud helpline right away to block your card, freeze the beneficiary transaction, and lodge a dispute.",
+        "priority": "critical",
+        "icon_type": "alert-triangle"
+      }
+    ],
+    "created_at": "2026-10-04T08:02:15.624886",
+    "is_demo": false,
+    "_id": "79760fd0-e05b-48b0-bb93-b6a99822093e"
+  }
+]

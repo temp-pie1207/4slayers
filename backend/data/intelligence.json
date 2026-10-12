@@ -1,0 +1,373 @@
+[
+  {
+    "id": "banking-scams",
+    "category": "banking",
+    "name": "Banking & KYC Scams",
+    "icon": "landmark",
+    "report_count": 1420,
+    "risk_level": "Critical",
+    "description": "Fraudulent messages and calls impersonating banks claiming account suspension, PAN card expiry, or incomplete KYC to harvest NetBanking credentials.",
+    "common_indicators": [
+      "Urgent threats that account or debit card will be blocked within 24 hours",
+      "Unsolicited SMS containing links to .xyz, .top, or typo-domains",
+      "Requests for OTP, NetBanking password, or debit card CVV",
+      "Sender ID that doesn't match official bank shortcode"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "Urgent Bait SMS",
+        "description": "Victim receives text claiming account will be deactivated due to pending KYC."
+      },
+      {
+        "step": 2,
+        "title": "Cloned Phishing Portal",
+        "description": "Link leads to exact replica of bank login screen."
+      },
+      {
+        "step": 3,
+        "title": "Credential & OTP Interception",
+        "description": "Scammers capture login details and trigger live OTP prompt to drain funds."
+      }
+    ],
+    "recommended_safety_measures": [
+      "Never click on SMS or WhatsApp links to update KYC",
+      "Banks only update KYC via official branches or verified in-app video KYC",
+      "Never disclose OTP to anyone, including bank representatives"
+    ],
+    "_id": "banking-scams"
+  },
+  {
+    "id": "upi-scams",
+    "category": "upi",
+    "name": "UPI & Payment App Scams",
+    "icon": "credit-card",
+    "report_count": 2180,
+    "risk_level": "Critical",
+    "description": "Reverse-charge fraud, fake refund requests, and QR code manipulation where victims are tricked into sending money instead of receiving it.",
+    "common_indicators": [
+      "Claiming that entering your UPI PIN is required to 'receive' money",
+      "Fake screenshot of money transfer shared by buyer on OLX/Marketplace",
+      "Collect requests sent with memos like 'Refund Approved' or 'Cashback'"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "False Buyer / Refund Contact",
+        "description": "Scammer poses as eager buyer or support agent offering refund."
+      },
+      {
+        "step": 2,
+        "title": "Send Deceptive Collect Request",
+        "description": "Sends a UPI collect request or QR code labeled 'Receive Amount'."
+      },
+      {
+        "step": 3,
+        "title": "PIN Entry Deduction",
+        "description": "Victim enters PIN thinking it accepts payment; funds are instantly deducted."
+      }
+    ],
+    "recommended_safety_measures": [
+      "Remember: UPI PIN is ONLY entered to SEND money, NEVER to receive money",
+      "Do not scan QR codes sent by strangers on classifieds or social media",
+      "Check the payee name and VPA before confirming any transaction"
+    ],
+    "_id": "upi-scams"
+  },
+  {
+    "id": "fake-customer-support",
+    "category": "support",
+    "name": "Fake Customer Support",
+    "icon": "headphones",
+    "report_count": 980,
+    "risk_level": "High",
+    "description": "Search engine SEO poisoned phone numbers where victims searching for airline, bank, or courier support call scammers directly.",
+    "common_indicators": [
+      "Customer care number found on unofficial Google search results or social media",
+      "Agent asks you to install AnyDesk, TeamViewer, or RustDesk on your phone",
+      "Agent asks for a small nominal fee (\u20b910 or $1) to register your complaint"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "SEO Poisoning",
+        "description": "Scammers place fake customer helpline numbers on Google Maps or forums."
+      },
+      {
+        "step": 2,
+        "title": "Remote Access Request",
+        "description": "Fake executive asks user to install remote desktop app to 'fix the glitch'."
+      },
+      {
+        "step": 3,
+        "title": "Device Takeover",
+        "description": "Scammer views screen during OTP generation and takes over banking apps."
+      }
+    ],
+    "recommended_safety_measures": [
+      "Only retrieve contact numbers directly inside official verified apps",
+      "Never install remote desktop software (AnyDesk, TeamViewer) at caller's request",
+      "Disconnect immediately if caller asks for PIN or screen sharing"
+    ],
+    "_id": "fake-customer-support"
+  },
+  {
+    "id": "job-scams",
+    "category": "job",
+    "name": "Part-Time Job & Task Scams",
+    "icon": "briefcase",
+    "report_count": 1750,
+    "risk_level": "High",
+    "description": "Telegram/WhatsApp offers for simple tasks like liking YouTube videos or rating hotels, ending in crypto deposit traps.",
+    "common_indicators": [
+      "Promises of \u20b93,000 to \u20b910,000 per day for simple 10-minute tasks",
+      "Recruiter contacts via unsolicited WhatsApp or Telegram message",
+      "Demands a 'security deposit' or 'VIP task investment' to withdraw earned balance"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "Small Initial Payout",
+        "description": "Victim earns \u20b9200-500 for liking 3 videos to establish artificial trust."
+      },
+      {
+        "step": 2,
+        "title": "Prepaid Task Upsell",
+        "description": "Added to Telegram group; instructed to invest \u20b95,000 for \u20b98,000 return."
+      },
+      {
+        "step": 3,
+        "title": "Withdrawal Freeze",
+        "description": "Platform freezes funds; demands larger deposits until victim exhausts savings."
+      }
+    ],
+    "recommended_safety_measures": [
+      "No legitimate company pays huge sums for liking YouTube videos",
+      "Never pay money upfront to get a job or unlock task earnings",
+      "Block unknown recruiters messaging from international numbers"
+    ],
+    "_id": "job-scams"
+  },
+  {
+    "id": "investment-scams",
+    "category": "investment",
+    "name": "Investment & Crypto Doubling Scams",
+    "icon": "trending-up",
+    "report_count": 1310,
+    "risk_level": "Critical",
+    "description": "Bogus trading platforms, WhatsApp investment advisory groups, and artificial AI trading bots guaranteeing risk-free returns.",
+    "common_indicators": [
+      "Guaranteed 200% to 500% returns with 'zero risk'",
+      "Added to WhatsApp/Telegram groups showing screenshots of massive profits",
+      "Fake trading dashboard showing inflated profits that cannot be withdrawn"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "Social Engineering Group",
+        "description": "Victim added to group of 50+ accounts (all scammers) celebrating huge gains."
+      },
+      {
+        "step": 2,
+        "title": "Fake Trading Portal",
+        "description": "User deposits funds; dashboard shows balance multiplying rapidly."
+      },
+      {
+        "step": 3,
+        "title": "Tax/Release Fee Extortion",
+        "description": "Scammers demand 30% advance tax before allowing any withdrawal."
+      }
+    ],
+    "recommended_safety_measures": [
+      "Only trade through SEBI/SEC registered brokers",
+      "Guaranteed high returns do not exist in genuine financial markets",
+      "Never wire money to individual bank accounts for corporate investments"
+    ],
+    "_id": "investment-scams"
+  },
+  {
+    "id": "phishing",
+    "category": "phishing",
+    "name": "Brand & Email Phishing",
+    "icon": "shield-alert",
+    "report_count": 1640,
+    "risk_level": "High",
+    "description": "Cloned emails from Apple, Microsoft, Netflix, or PayPal claiming billing failure or unusual sign-in activity.",
+    "common_indicators": [
+      "Sender email address has a weird domain (e.g. support@netflix-billing-sec.com)",
+      "Generic greeting ('Dear Customer') instead of your actual name",
+      "Urgent threat that subscription or account will be permanently canceled"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "Deceptive Email",
+        "description": "Victim receives billing failure notification for popular streaming/cloud service."
+      },
+      {
+        "step": 2,
+        "title": "Fake Login & Payment",
+        "description": "User enters login password and credit card details to 'update billing'."
+      },
+      {
+        "step": 3,
+        "title": "Account Hijack",
+        "description": "Card details harvested; account password changed immediately."
+      }
+    ],
+    "recommended_safety_measures": [
+      "Check sender address closely, not just display name",
+      "Log in directly by typing the official website in browser address bar",
+      "Enable multi-factor hardware or app-based 2FA"
+    ],
+    "_id": "phishing"
+  },
+  {
+    "id": "delivery-scams",
+    "category": "delivery",
+    "name": "Delivery & Parcel Rescheduling",
+    "icon": "truck",
+    "report_count": 1150,
+    "risk_level": "High",
+    "description": "Smishing texts impersonating FedEx, DHL, USPS, or India Post claiming a parcel could not be delivered due to wrong address.",
+    "common_indicators": [
+      "SMS with tracking number claiming delivery failed today",
+      "Link has typosquatting domain (.top, .xyz, -parcel-redelivery)",
+      "Demands $1.50 or \u20b950 redelivery fee by debit/credit card"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "Failed Delivery Notice",
+        "description": "SMS alerts user that package is held at depot."
+      },
+      {
+        "step": 2,
+        "title": "Address & Card Skimmer",
+        "description": "Landing page asks for updated address and payment for redelivery."
+      },
+      {
+        "step": 3,
+        "title": "Unauthorized Card Siphon",
+        "description": "Credit card data stolen; multiple unauthorized transactions initiated."
+      }
+    ],
+    "recommended_safety_measures": [
+      "Official couriers leave physical slips or notify through their official registered app",
+      "Never pay nominal redelivery fees through links received via SMS",
+      "Check tracking numbers only on official carrier websites"
+    ],
+    "_id": "delivery-scams"
+  },
+  {
+    "id": "government-impersonation",
+    "category": "government",
+    "name": "Digital Arrest & Govt Impersonation",
+    "icon": "scale",
+    "report_count": 890,
+    "risk_level": "Critical",
+    "description": "Criminals posing as Police, CBI, Customs, or Telecom Department holding victims on coercive Skype video calls under 'Digital Arrest'.",
+    "common_indicators": [
+      "Call claiming your Aadhaar or passport was found in narcotics parcel or illegal SIM cards",
+      "Caller demands Skype/WhatsApp video call with fake police station background",
+      "Strict instruction not to disconnect call or tell family ('State Secrecy')"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "Interactive IVR Call",
+        "description": "Automated call claims mobile connection will be disconnected in 2 hours."
+      },
+      {
+        "step": 2,
+        "title": "Fake Police Video Call",
+        "description": "Transferred to actor in uniform with forged police seal and fake FIR."
+      },
+      {
+        "step": 3,
+        "title": "Fund Verification Transfer",
+        "description": "Coerced to transfer entire savings to 'RBI Escrow Account' for verification."
+      }
+    ],
+    "recommended_safety_measures": [
+      "There is NO legal provision for 'Digital Arrest' under Indian law or any international jurisdiction",
+      "Police and enforcement agencies NEVER investigate citizens over Skype or WhatsApp",
+      "Immediately disconnect and dial 1930 or visit local police station"
+    ],
+    "_id": "government-impersonation"
+  },
+  {
+    "id": "social-media-scams",
+    "category": "social",
+    "name": "Social Media & Impersonation Scams",
+    "icon": "share-2",
+    "report_count": 940,
+    "risk_level": "Medium",
+    "description": "Cloned Instagram/Facebook profiles messaging friends for emergency medical funds, or fake giveaways.",
+    "common_indicators": [
+      "Close friend or relative messages asking for urgent loan via UPI",
+      "Account has slight typo in username or was recently created",
+      "Excuses why they cannot speak over phone voice call"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "Profile Cloning",
+        "description": "Scammers clone photos and name of target's real friend."
+      },
+      {
+        "step": 2,
+        "title": "Urgent Medical Crisis",
+        "description": "Messages target: 'My sister is in hospital, UPI limit reached, please send \u20b915,000'."
+      },
+      {
+        "step": 3,
+        "title": "Disappearance",
+        "description": "Once transferred, scammer blocks victim and targets next friend on contact list."
+      }
+    ],
+    "recommended_safety_measures": [
+      "Always call the person directly on phone before sending any emergency money",
+      "Verify profile creation date and mutual follower connections",
+      "Report and block cloned accounts immediately"
+    ],
+    "_id": "social-media-scams"
+  },
+  {
+    "id": "qr-scams",
+    "category": "qr",
+    "name": "QR Phishing (Quishing)",
+    "icon": "qr-code",
+    "report_count": 760,
+    "risk_level": "High",
+    "description": "Malicious QR stickers pasted over legitimate parking meters, restaurant menus, or shared via email to evade text spam filters.",
+    "common_indicators": [
+      "Physical QR sticker pasted on top of another existing sign or meter",
+      "Email with no text but an embedded QR code asking you to verify MFA",
+      "QR code opens browser directly without displaying the URL destination first"
+    ],
+    "typical_attack_flow": [
+      {
+        "step": 1,
+        "title": "QR Baiting",
+        "description": "Victim scans QR code to pay for parking or authenticate enterprise login."
+      },
+      {
+        "step": 2,
+        "title": "Mobile Landing Page",
+        "description": "Directed to phishing clone designed specifically for mobile screens."
+      },
+      {
+        "step": 3,
+        "title": "Session / Token Theft",
+        "description": "Victim enters credentials or approves push notification, granting account access."
+      }
+    ],
+    "recommended_safety_measures": [
+      "Use QR scanner apps that preview the full URL before opening",
+      "Feel for raised physical stickers pasted over legitimate merchant signs",
+      "Never scan QR codes sent in security alert emails"
+    ],
+    "_id": "qr-scams"
+  }
+]

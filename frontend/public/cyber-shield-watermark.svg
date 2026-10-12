@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" fill="none">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.25" />
+      <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+    <radialGradient id="shieldCore" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.3" />
+      <stop offset="60%" stop-color="#3b82f6" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="400" cy="400" r="320" fill="url(#shieldCore)" />
+
+  <!-- Outer Concentric HUD Rings -->
+  <circle cx="400" cy="400" r="360" stroke="rgba(6, 182, 212, 0.12)" stroke-width="1.5" stroke-dasharray="12 8" />
+  <circle cx="400" cy="400" r="320" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+  <circle cx="400" cy="400" r="280" stroke="rgba(6, 182, 212, 0.18)" stroke-width="1" stroke-dasharray="4 16" />
+
+  <!-- Crosshairs -->
+  <line x1="400" y1="40" x2="400" y2="760" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1" stroke-dasharray="6 6" />
+  <line x1="40" y1="400" x2="760" y2="400" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1" stroke-dasharray="6 6" />
+
+  <!-- Tactical Hex Shield Outline -->
+  <path d="M 400 140 L 620 220 L 620 440 C 620 570 510 660 400 700 C 290 660 180 570 180 440 L 180 220 Z" 
+        stroke="rgba(6, 182, 212, 0.35)" stroke-width="2" fill="url(#shieldGrad)" />
+
+  <!-- Inner Defense Crest -->
+  <path d="M 400 200 L 560 260 L 560 430 C 560 520 480 590 400 620 C 320 590 240 520 240 430 L 240 260 Z" 
+        stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5" stroke-dasharray="8 6" fill="none" />
+
+  <!-- Central Lock / Cyber Core -->
+  <rect x="360" y="380" width="80" height="70" rx="10" stroke="rgba(6, 182, 212, 0.5)" stroke-width="2" fill="rgba(6, 182, 212, 0.08)" />
+  <path d="M 375 380 L 375 345 C 375 330 385 320 400 320 C 415 320 425 330 425 345 L 425 380" 
+        stroke="rgba(6, 182, 212, 0.5)" stroke-width="2" fill="none" />
+  <circle cx="400" cy="410" r="5" fill="#06b6d4" />
+  <line x1="400" y1="415" x2="400" y2="430" stroke="#06b6d4" stroke-width="2" />
+
+  <!-- Degree telemetry text -->
+  <text x="410" y="90" fill="rgba(6, 182, 212, 0.4)" font-family="monospace" font-size="12">000° DEFENSE_ACTIVE</text>
+  <text x="640" y="405" fill="rgba(6, 182, 212, 0.4)" font-family="monospace" font-size="12">090° SCAM_DNA</text>
+  <text x="410" y="730" fill="rgba(6, 182, 212, 0.4)" font-family="monospace" font-size="12">180° THREAT_RADAR</text>
+  <text x="70" y="405" fill="rgba(6, 182, 212, 0.4)" font-family="monospace" font-size="12">270° SENTINEL</text>
+</svg>
+
