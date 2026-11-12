@@ -104,3 +104,23 @@ class ScanResultResponse(BaseModel):
     recommended_actions: List[RecommendedAction]
     created_at: str
     is_demo: bool = False
+    feedback: Optional[Dict[str, Any]] = None
+
+class MultimodalScanRequest(BaseModel):
+    message: Optional[str] = None
+    url: Optional[str] = None
+    phone: Optional[str] = None
+    qr_content: Optional[str] = None
+    image_base64: Optional[str] = None
+    payment_recipient: Optional[str] = None
+    amount: Optional[float] = None
+    payment_method: Optional[str] = None
+    sender_info: Optional[str] = None
+    is_demo: bool = False
+
+class ScanFeedbackRequest(BaseModel):
+    is_helpful: bool = True
+    rating: int = 5
+    user_verdict: Optional[str] = "confirmed_threat"
+    notes: Optional[str] = None
+

@@ -150,3 +150,72 @@ def forgot_password(req: ForgotPasswordRequest):
         "status": "success",
         "message": f"Password reset instructions have been dispatched to {req.email}."
     }
+
+@router.get("/settings")
+def get_user_settings(user: dict = Depends(require_current_user)):
+    db = get_db()
+    users_col = db.get_collection("users")
+    user_doc = users_col.find_one({"id": user["id"]}) or {}
+    settings_data = user_doc.get("settings", {
+        "theme": "golden-intelligence",
+        "sensitivity": "balanced",
+        "realtime_alerts": True,
+        "anonymize_scans": True,
+        "auto_quarantine_links": True,
+        "threat_feed_frequency": "instant"
+    })
+    return settings_data
+
+@router.post("/settings")
+def update_user_settings(settings_data: dict, user: dict = Depends(require_current_user)):
+    db = get_db()
+    users_col = db.get_collection("users")
+    users_col.update_one({"id": user["id"]}, {"$set": {"settings": settings_data}})
+    return {"status": "success", "settings": settings_data}
+
+@router.get("/export")
+def export_user_data(user: dict = Depends(require_current_user)):
+    db = get_db()
+    scans_col = db.get_collection("scans")
+    reports_col = db.get_collection("reports")
+    user_scans = scans_col.find({"user_id": user["id"]})
+    user_reports = reports_col.find({"user_id": user["id"]})
+    return {
+        "export_timestamp": datetime.utcnow().isoformat(),
+        "account": {
+            "id": user["id"],
+            "name": user["name"],
+            "email": user["email"],
+            "role": user.get("role", "user"),
+            "created_at": user.get("created_at")
+        },
+        "scans": user_scans,
+        "reports": user_reports,
+        "compliance_notice": "4SLAYERS GDPR & CCPA full audit record export."
+    }
+
+@router.delete("/purge-data")
+def purge_user_data(user: dict = Depends(require_current_user)):
+    db = get_db()
+    scans_col = db.get_collection("scans")
+    reports_col = db.get_collection("reports")
+    
+    deleted_scans = 0
+    deleted_reports = 0
+    scans = scans_col.find({"user_id": user["id"]})
+    for s in scans:
+        if scans_col.delete_one({"id": s["id"]}):
+            deleted_scans += 1
+
+    reports = reports_col.find({"user_id": user["id"]})
+    for r in reports:
+        if reports_col.delete_one({"id": r["id"]}):
+            deleted_reports += 1
+
+    return {
+        "status": "success",
+        "purged_scans": deleted_scans,
+        "purged_reports": deleted_reports,
+        "message": "All personal scan records and submitted reports have been permanently removed."
+    }
+

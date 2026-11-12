@@ -1,197 +1,217 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Zap } from 'lucide-react';
-import ParticleVortex3D from '../components/ParticleVortex3D';
-import TechStackStrip from '../components/TechStackStrip';
-import HiddenConnectionsSection from '../components/HiddenConnectionsSection';
-import PipelineMotionSection from '../components/PipelineMotionSection';
-import ScamDNAInteractiveSection from '../components/ScamDNAInteractiveSection';
-import ExplainableDetectionSection from '../components/ExplainableDetectionSection';
-import ActionPlaybookSection from '../components/ActionPlaybookSection';
-import DemoPresetsBar from '../components/DemoPresetsBar';
-import { useAuth } from '../context/AuthContext';
+import { ArrowUpRight, ArrowDown, Shield, Sparkles, Dna, Activity, Lock, Layers } from 'lucide-react';
+import HeroGoldenAtmosphere from '../components/HeroGoldenAtmosphere';
+import ScamDNAHero3D from '../components/ScamDNAHero3D';
+import ProductIntelligenceStrip from '../components/ProductIntelligenceStrip';
+import ProblemSection from '../components/ProblemSection';
+import ScannerPreviewSection from '../components/ScannerPreviewSection';
+import ScamDNAFullSection from '../components/ScamDNAFullSection';
+import MultimodalSection from '../components/MultimodalSection';
+import ExplainableAISection from '../components/ExplainableAISection';
+import FraudNetworkSection from '../components/FraudNetworkSection';
+import ProcessDiagramSection from '../components/ProcessDiagramSection';
+import SafetyRecommendationsSection from '../components/SafetyRecommendationsSection';
+import PrivacyTrustSection from '../components/PrivacyTrustSection';
+import FinalCTASection from '../components/FinalCTASection';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { motion } from 'motion/react';
 
 export default function LandingPage() {
-  const { demoLogin } = useAuth();
-
-  const scrollToOverview = () => {
-    const elem = document.getElementById('platform');
+  const scrollToExplore = () => {
+    const elem = document.getElementById('product-strip');
     if (elem) {
       elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white selection:bg-white selection:text-black">
-      
+    <div className="flex flex-col min-h-screen bg-[#FBF8F0] dark:bg-[#0F0D0A] text-[#242019] dark:text-[#FBF8F0] overflow-x-hidden">
+      <Navbar />
+
       {/* =========================================================================
-          HERO SECTION — 100svh Immersive Monochromatic Generative Particle Vortex
+          SECTION 01 — HERO (CINEMATIC OPENING & EDITORIAL ARCHITECTURAL GRID)
           ========================================================================= */}
-      <section className="relative w-full h-[100svh] min-h-[680px] flex flex-col justify-between items-center overflow-hidden bg-black pt-20 pb-6 sm:pb-8">
-        
-        {/* Generative 3D Hourglass Particle Field Sculpture Background */}
-        <ParticleVortex3D />
+      <section className="relative w-full min-h-[92svh] pt-28 pb-12 flex flex-col justify-between overflow-hidden border-b border-[#E5DCCB] dark:border-[#2E2820]">
+        {/* Golden Intelligence Canvas Atmosphere */}
+        <HeroGoldenAtmosphere />
 
-        {/* Ambient atmospheric depth gradient - pure black vignettes */}
-        <div 
-          className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.7)_85%,rgba(0,0,0,1)_100%)]" 
-          aria-hidden="true" 
-        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 my-auto">
+          {/* Editorial Grid Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            
+            {/* Left 7 Columns: Editorial Headline, Eyebrow & Actions */}
+            <div className="lg:col-span-7 space-y-6">
+              
+              {/* Technical Eyebrow */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[#E5DCCB] dark:border-[#3D3528] bg-white/70 dark:bg-[#1C1813]/70 backdrop-blur-sm text-[10px] sm:text-xs font-mono tracking-[0.2em] uppercase text-[#906727] dark:text-[#EAD6A0]"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C69A42] animate-pulse" />
+                <span>MULTIMODAL FRAUD INTELLIGENCE · BUILT FOR DIGITAL TRUST</span>
+              </motion.div>
 
-        {/* Top spacer to balance visual vertical center */}
-        <div className="w-full h-8 sm:h-12 pointer-events-none" />
+              {/* Master Headline: SEE THE PATTERN. STOP THE SCAM. */}
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-[#242019] dark:text-[#FBF8F0] leading-[1.02]"
+              >
+                <span className="block">SEE THE PATTERN.</span>
+                <span className="block text-[#C69A42] mt-1">STOP THE SCAM.</span>
+              </motion.h1>
 
-        {/* Hero Center Content — Centered horizontally & near visual center */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center select-none flex flex-col items-center my-auto">
-          {/* Subtle radial text feathering to guarantee crystalline typography over particles */}
-          <div className="absolute inset-0 -m-8 sm:-m-16 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0)_70%)] pointer-events-none -z-10" aria-hidden="true" />
-          
-          {/* Main Headline with exact copy and elegant lightweight typography */}
-          <h1 className="tracking-tight text-white font-light text-4xl sm:text-6xl md:text-7xl lg:text-[5.1rem] leading-[1.08] max-w-4xl mx-auto mb-6 sm:mb-8 font-sans">
-            <span className="block text-white font-light">
-              The intelligence to see
-            </span>
-            <span className="block text-white/50 font-light mt-1 sm:mt-2">
-              the scam before it unfolds.
-            </span>
-          </h1>
+              {/* Supporting Copy */}
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="text-base sm:text-lg text-[#777064] dark:text-[#A8A095] max-w-xl font-sans leading-relaxed"
+              >
+                Scams rarely happen in isolation. 4Slayers connects messages, links, calls, QR codes, and payment signals to uncover the patterns others miss.
+              </motion.p>
 
-          {/* Supporting Copy */}
-          <div className="max-w-2xl mx-auto space-y-1.5 sm:space-y-2 mb-8 sm:mb-10 text-white/60 text-sm sm:text-base md:text-lg font-light leading-relaxed">
-            <p>Messages. Calls. Links. Payments. One connected view of suspicious activity.</p>
-            <p className="text-white/45 text-xs sm:text-sm md:text-base">
-              Understand the risk. Discover the connections. Know what to do next.
-            </p>
-          </div>
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.3 }}
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2"
+              >
+                {/* Primary Button */}
+                <Link
+                  to="/app/scan"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl btn-gold-shimmer text-xs sm:text-sm uppercase tracking-wider font-bold border border-[#C69A42] shadow-md hover:shadow-xl transition focus:outline-none"
+                >
+                  <span>Scan a Threat</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
 
-          {/* Hero Actions: Primary & Secondary Buttons */}
-          <div className="flex flex-row items-center justify-center gap-3 sm:gap-4">
-            {/* Primary Action */}
-            <Link
-              to="/scan"
-              className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-white text-black hover:bg-white/90 text-xs sm:text-[13px] tracking-wider uppercase font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-sm focus:outline-none"
+                {/* Secondary Button */}
+                <button
+                  onClick={scrollToExplore}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-[#E5DCCB] dark:border-[#3D3528] bg-white/70 dark:bg-[#16130F]/70 hover:border-[#C69A42] text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#242019] dark:text-[#FBF8F0] transition focus:outline-none cursor-pointer"
+                >
+                  <span>Explore the Intelligence</span>
+                  <ArrowDown className="w-4 h-4 text-[#C69A42]" />
+                </button>
+              </motion.div>
+
+              {/* Live Technical Diagnostic Indicators */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="pt-4 flex flex-wrap items-center gap-4 text-[11px] font-mono text-[#777064] dark:text-[#9E9688]"
+              >
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#277653]" />
+                  <span>Heuristics Engine v2.4 Active</span>
+                </div>
+                <span>•</span>
+                <div className="flex items-center gap-1.5">
+                  <Activity className="w-3 h-3 text-[#C69A42]" />
+                  <span>Multi-Channel Correlation Enabled</span>
+                </div>
+              </motion.div>
+
+            </div>
+
+            {/* Right 5 Columns: Interactive 3D Scam DNA Visualization */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.2 }}
+              className="lg:col-span-5 relative"
             >
-              <span>OPEN SCANNER</span>
-              <span className="text-xs">↗</span>
-            </Link>
+              <div className="relative rounded-3xl border border-[#E5DCCB] dark:border-[#332B20] bg-white/40 dark:bg-[#16130F]/40 backdrop-blur-md p-2 shadow-2xl">
+                <ScamDNAHero3D />
+              </div>
+            </motion.div>
 
-            {/* Secondary Action */}
-            <button
-              onClick={scrollToOverview}
-              className="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-transparent border border-white/25 hover:border-white/70 text-white hover:bg-white/[0.04] text-xs sm:text-[13px] tracking-wider uppercase font-medium transition-all duration-200 focus:outline-none cursor-pointer"
-            >
-              <span>EXPLORE THE PLATFORM</span>
-            </button>
           </div>
         </div>
 
-        {/* Partner and Technology Strip — Restrained horizontal strip above bottom edge */}
-        <div className="relative z-10 w-full mt-auto">
-          <TechStackStrip />
-          
-          {/* Subtle scroll cue pointing to next section */}
-          <div className="flex justify-center mt-3 text-white/25 text-[10px] uppercase font-mono tracking-widest pointer-events-none">
-            <span className="animate-pulse">Scroll to explore</span>
+        {/* Bottom Technical Information Strip */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 pt-6 border-t border-[#E5DCCB]/70 dark:border-[#2E2820]/70 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#777064] dark:text-[#9E9688]">
+          <div className="flex items-center gap-3">
+            <span className="text-[#906727] dark:text-[#EAD6A0] font-bold">4SLAYERS // ARCHITECTURE</span>
+            <span>REST API + FASTAPI + PYMONGO + DOCUMENT VECTOR ENGINE</span>
           </div>
-        </div>
-
-      </section>
-
-      {/* =========================================================================
-          INTERACTIVE 1-CLICK DEMO THREAT PRESETS STRIP
-          ========================================================================= */}
-      <section className="relative z-20 py-8 bg-[#030303] border-b border-white/[0.08]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between mb-3 text-xs font-mono text-white/40">
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-white/60"></span>
-              QUICK TEST SUITE // 1-CLICK VERIFICATION EXAMPLES
-            </span>
-            <span className="hidden sm:inline text-white/30">Select any scenario to pre-populate scanner</span>
-          </div>
-          <DemoPresetsBar />
-        </div>
-      </section>
-
-      {/* =========================================================================
-          SECTION A — The Hidden Connections
-          ========================================================================= */}
-      <HiddenConnectionsSection />
-
-      {/* =========================================================================
-          SECTION B — Intelligence in Motion
-          ========================================================================= */}
-      <PipelineMotionSection />
-
-      {/* =========================================================================
-          SECTION C — Scam DNA
-          ========================================================================= */}
-      <ScamDNAInteractiveSection />
-
-      {/* =========================================================================
-          SECTION D — Explainable Detection
-          ========================================================================= */}
-      <ExplainableDetectionSection />
-
-      {/* =========================================================================
-          SECTION E — Take Action with Confidence
-          ========================================================================= */}
-      <ActionPlaybookSection />
-
-      {/* =========================================================================
-          SECTION F — Final Call to Action
-          ========================================================================= */}
-      <section className="relative py-32 sm:py-44 bg-black text-white border-t border-white/[0.08] overflow-hidden text-center">
-        {/* Subtle background glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03)_0%,transparent_60%)] pointer-events-none" />
-
-        <div className="max-w-4xl mx-auto px-4 sm:px-8 relative z-10 flex flex-col items-center">
-          
-          <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-white/40 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/70"></span>
-            <span>Section 06 // Proactive Defense</span>
-          </div>
-
-          <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.08] max-w-3xl mb-6">
-            Trust your instincts. <br />
-            <span className="text-white/50">Verify the evidence.</span>
-          </h2>
-
-          <p className="text-sm sm:text-base md:text-lg text-white/60 font-light max-w-xl mx-auto mb-10 leading-relaxed">
-            Investigate suspicious activity with clearer signals, connected evidence, and practical guidance.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              to="/scan"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-black hover:bg-white/90 text-xs sm:text-sm tracking-wider uppercase font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-sm focus:outline-none"
-            >
-              <span>ANALYZE A THREAT</span>
-              <span className="text-sm">↗</span>
-            </Link>
-
-            <button
-              onClick={async () => {
-                await demoLogin();
-                window.location.href = '/dashboard';
-              }}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-transparent border border-white/20 hover:border-white/50 text-white/80 hover:text-white text-xs sm:text-sm tracking-wider uppercase font-medium transition-all duration-200 hover:bg-white/[0.04]"
-            >
-              <Zap className="w-3.5 h-3.5 text-cyan-400" />
-              <span>LAUNCH DEMO ANALYST</span>
-            </button>
-          </div>
-
-          <div className="mt-14 flex items-center justify-center gap-8 text-[11px] font-mono text-white/35">
-            <span>Multimodal Ingestion</span>
-            <span>•</span>
-            <span>Zero-Retention Scanning</span>
-            <span>•</span>
-            <span>Open Verification</span>
+          <div className="flex items-center gap-4">
+            <span>ZERO AD TRACKERS</span>
+            <span>GDPR RIGHT-TO-ERASE</span>
+            <span className="text-[#277653] font-bold">100% OPERATIONAL</span>
           </div>
         </div>
       </section>
 
+      {/* =========================================================================
+          SECTION 02 — PRODUCT INTELLIGENCE STRIP
+          ========================================================================= */}
+      <div id="product-strip">
+        <ProductIntelligenceStrip />
+      </div>
+
+      {/* =========================================================================
+          SECTION 03 — THE PROBLEM ("A SCAM IS NEVER JUST ONE SIGNAL")
+          ========================================================================= */}
+      <ProblemSection />
+
+      {/* =========================================================================
+          SECTION 04 — THE SCANNER (INTERACTIVE REAL BACKEND PREVIEW)
+          ========================================================================= */}
+      <ScannerPreviewSection />
+
+      {/* =========================================================================
+          SECTION 05 — SCAM DNA (FULL-WIDTH INTERACTIVE TOPOLOGY)
+          ========================================================================= */}
+      <ScamDNAFullSection />
+
+      {/* =========================================================================
+          SECTION 06 — MULTIMODAL INTELLIGENCE (7 VECTORS)
+          ========================================================================= */}
+      <MultimodalSection />
+
+      {/* =========================================================================
+          SECTION 07 — EXPLAINABLE AI ("NOT JUST A SCORE")
+          ========================================================================= */}
+      <ExplainableAISection />
+
+      {/* =========================================================================
+          SECTION 08 — FRAUD NETWORK (INTERACTIVE SYNDICATE GRAPH)
+          ========================================================================= */}
+      <FraudNetworkSection />
+
+      {/* =========================================================================
+          SECTION 09 — HOW IT WORKS (5-STAGE SCROLL-LINKED PIPELINE)
+          ========================================================================= */}
+      <ProcessDiagramSection />
+
+      {/* =========================================================================
+          SECTION 10 — SAFETY RECOMMENDATIONS
+          ========================================================================= */}
+      <SafetyRecommendationsSection />
+
+      {/* =========================================================================
+          SECTION 11 — PRIVACY & TRUST
+          ========================================================================= */}
+      <PrivacyTrustSection />
+
+      {/* =========================================================================
+          SECTION 12 — FINAL CTA (GOLDEN-TO-BURGUNDY TRANSITION)
+          ========================================================================= */}
+      <FinalCTASection />
+
+      {/* =========================================================================
+          SECTION 13 — FOOTER
+          ========================================================================= */}
+      <Footer />
     </div>
   );
 }

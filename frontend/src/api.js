@@ -191,5 +191,100 @@ export const api = {
     const res = await fetch(`${API_BASE}/intelligence/${categoryId}`);
     if (!res.ok) throw new Error('Failed to fetch category');
     return res.json();
+  },
+
+  // Multimodal & Advanced Scan
+  async scanMultimodal(multimodalData) {
+    const res = await fetch(`${API_BASE}/scan/multimodal`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(multimodalData),
+    });
+    if (!res.ok) throw new Error('Multimodal scan failed');
+    return res.json();
+  },
+
+  async submitFeedback(scanId, feedback) {
+    const res = await fetch(`${API_BASE}/scan/${scanId}/feedback`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(feedback),
+    });
+    if (!res.ok) throw new Error('Failed to submit feedback');
+    return res.json();
+  },
+
+  // Fraud Network Graph
+  async getFraudNetwork(cluster = 'all') {
+    const res = await fetch(`${API_BASE}/intelligence/network/graph?cluster=${encodeURIComponent(cluster)}`);
+    if (!res.ok) throw new Error('Failed to fetch network graph');
+    return res.json();
+  },
+
+  // Analytics Metrics
+  async getAnalytics() {
+    const res = await fetch(`${API_BASE}/intelligence/metrics/analytics`);
+    if (!res.ok) throw new Error('Failed to fetch analytics');
+    return res.json();
+  },
+
+  // Notifications
+  async getNotifications() {
+    const res = await fetch(`${API_BASE}/intelligence/notifications/list`);
+    if (!res.ok) throw new Error('Failed to fetch notifications');
+    return res.json();
+  },
+
+  async markNotificationRead(id) {
+    const res = await fetch(`${API_BASE}/intelligence/notifications/${id}/read`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+    });
+    return res.json();
+  },
+
+  async markAllNotificationsRead() {
+    const res = await fetch(`${API_BASE}/intelligence/notifications/read-all`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+    });
+    return res.json();
+  },
+
+  // User Settings & Privacy
+  async getUserSettings() {
+    const res = await fetch(`${API_BASE}/auth/settings`, {
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) throw new Error('Failed to fetch settings');
+    return res.json();
+  },
+
+  async updateUserSettings(settings) {
+    const res = await fetch(`${API_BASE}/auth/settings`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(settings),
+    });
+    if (!res.ok) throw new Error('Failed to update settings');
+    return res.json();
+  },
+
+  async exportUserData() {
+    const res = await fetch(`${API_BASE}/auth/export`, {
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) throw new Error('Failed to export data');
+    return res.json();
+  },
+
+  async purgeUserData() {
+    const res = await fetch(`${API_BASE}/auth/purge-data`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) throw new Error('Failed to purge data');
+    return res.json();
   }
 };
+

@@ -1,174 +1,131 @@
-# 4SLAYERS — AI Fraud & Scam Detection Platform
+# 4SLAYERS — Multimodal AI Fraud & Scam Detection Platform
 
-> **"Protect yourself before the scam happens."**  
-> AI-powered multi-channel fraud detection that connects messages, links, phone numbers, QR codes and payment signals to identify suspicious patterns before they cause real damage.
-
----
-
-## 🛡️ Core Workflow
-
-$$\text{SCAN} \longrightarrow \text{ANALYZE} \longrightarrow \text{RISK SCORE} \longrightarrow \text{ALERT} \longrightarrow \text{RECOMMENDED ACTION}$$
-
-Instead of evaluating an isolated message or link independently, **4SLAYERS correlates multiple threat signals** across channels into a unified **Scam DNA** graph to explain **WHY** something is dangerous and tell the user **WHAT TO DO NEXT**.
+> **"SEE THE PATTERN. STOP THE SCAM."**  
+> An award-winning digital product prototype built on the **Golden Intelligence** design language, connecting messages, links, calls, QR codes, and payment signals to uncover the patterns others miss.
 
 ---
 
-## ⚡ Key Differentiating Features
+## 🏛️ Creative Direction: Golden Intelligence
 
-### 1. Multi-Channel Universal Scanner
-* **SMS & Text Messages**: Identifies urgency manipulation, KYC traps, and coercive language.
-* **URLs & Web Links**: Analyzes domain age, typosquatting, disposable TLDs (`.xyz`, `.top`), and redirect chains.
-* **Phone Numbers**: Evaluates caller ID impersonation, premium rate toll fraud, and community report records.
-* **QR Codes**: Detects reverse-charge UPI traps (`upi://pay`), quishing links, and rogue Wi-Fi configurations.
-* **Screenshots**: OCR parsing of suspicious WhatsApp/SMS chat dialogues and invoice screens.
-* **Transactions**: Evaluates advance-fee extortion, mule VPAs, and non-reversible settlement channels.
-
-### 2. Weighted Multi-Signal Risk Engine
-Risk score (0–100) is calculated using an adaptive fusion engine:
-* **Message Analysis (25%)**
-* **URL Analysis (25%)**
-* **Behavioral Manipulation (20%)**
-* **Known Scam Patterns (15%)**
-* **Network & Graph Signals (15%)**
-
-#### Risk Tiers
-* `0–29`: **Low Risk** (Benign / Routine communication)
-* `30–59`: **Medium Risk** (Suspicious / Caution required)
-* `60–79`: **High Risk** (Dangerous / Likely scam)
-* `80–100`: **Critical Risk** (Active high-severity fraud campaign)
-
-### 3. Scam DNA — Fraud Network Graph
-Connects entities into an interactive visual topology:
-$$\text{Message} \longrightarrow \text{Phone Number} \longrightarrow \text{URL} \longrightarrow \text{Domain} \longrightarrow \text{Payment} \longrightarrow \text{Scam Pattern}$$
-When multiple independent indicators point to coordinated fraud, a **multi-signal confidence multiplier** (e.g. $1.35\times$) elevates certainty.
-
-### 4. Explainable AI (XAI) with Dual-Layer UX
-Never overwhelms users with opaque AI jargon:
-* **Simple Explanation ("What happened?")**: Plain English, conversational guidance for everyday citizens, students, and seniors.
-* **Technical Explanation ("Why did the AI detect it?")**: Detailed token weights, lexical entropy, DNS registrar indicators, and protocol payloads.
-
-### 5. Next Move Prediction
-Probabilistic forecasts of attacker playbooks with confidence percentages:
-* *"User will be redirected to a cloned NetBanking portal (92% confidence)"*
-* *"Attacker will trigger live OTP request within 90 seconds (88% confidence)"*
-* *"Follow-up automated IVR call to reinforce panic (74% confidence)"*
-
-### 6. Actionable Safety Recommendations
-Tailored step-by-step checklists prioritizing immediate defense:
-1. Do not click the link or scan the QR code.
-2. Never share OTP, PIN, password, or CVV.
-3. Stop all communication immediately and block the sender.
-4. Verify account status only via verified official banking channels.
-5. Report incident to **1930 / National Cyber Crime Portal**.
-6. If funds were transferred: trigger immediate bank freeze and chargeback dispute.
-
-### 7. Community Scam Intelligence & Reporting
-* Searchable database of crowd-sourced incidents with verified threat tags and upvotes.
-* Pre-seeded knowledge base across 10 scam categories (Banking, UPI, Customer Care, Job Scams, Investment, Delivery, Govt Impersonation, Social Media, Quishing).
+The platform embodies **Golden Intelligence** — combining:
+- Warm ivory backgrounds (`#FBF8F0`) and champagne accents (`#EAD6A0`)
+- Primary metallic gold (`#C69A42`) and deep gold highlights (`#906727`)
+- Deep burgundy contrast accents (`#4A151A`)
+- Oversized geometric typography (**Oxanium** / **Michroma**)
+- Clear readable interface typography (**Plus Jakarta Sans**)
+- Editorial statement font (**DM Serif Display**)
+- Precise diagnostic metadata font (**IBM Plex Mono**)
+- Interactive 3D Scam DNA object rendered in real-time with Three.js
+- Pointer-reactive golden particle atmosphere & subtle architectural grid
 
 ---
 
-## 🚀 Pre-Loaded Demo Scenarios (1-Click Evaluation)
+## ⚡ Architecture Overview
 
-| Demo ID | Case | Result | Risk Score |
-| :--- | :--- | :--- | :--- |
-| **Demo 1** | Fake Bank KYC Suspension SMS | **Critical Risk** | 94 / 100 |
-| **Demo 2** | Suspicious Shortened URL (`bit.ly/...`) | **High Risk** | 82 / 100 |
-| **Demo 3** | FedEx Delivery Redelivery Fee Smishing | **High Risk** | 86 / 100 |
-| **Demo 4** | Legitimate Nike Store Weekend Promo | **Low Risk** | 14 / 100 |
-| **Demo 5** | Coercive Cyber Police Legal Fine UPI | **Critical Risk** | 96 / 100 |
-
-You can test these scenarios directly using the **Interactive Test Presets Bar** on the Landing Page, Dashboard, or Scanner!
-
----
-
-## 🛠️ Technology Stack
-
-* **Frontend**: React.js (Vite 8), Tailwind CSS v4, React Router, Lucide React, Recharts.
-* **Backend**: Python 3, FastAPI, Pydantic, Uvicorn, REST APIs.
-* **Database**: MongoDB driver (`pymongo`) with built-in auto-fallback to local JSON document store.
-* **Security & Auth**: JWT bearer token authentication, PBKDF2-SHA256 password hashing.
-
----
-
-## 📂 Project Structure
-
-```text
-4slayers/
-├── backend/
-│   ├── main.py                  # FastAPI app entry point, CORS, routers
-│   ├── config.py                # Configuration and environment settings
-│   ├── demo_data.py             # Pre-seeded threat categories and 5 demo scenarios
-│   ├── api/
-│   │   ├── auth.py              # Register, login, 1-click demo login, JWT
-│   │   ├── scan.py              # Multi-channel scanning endpoints
-│   │   ├── reports.py           # Community reporting and upvotes
-│   │   └── intelligence.py      # Scam taxonomy & knowledge base
-│   ├── database/
-│   │   └── store.py             # Dual MongoDB / JSON document database
-│   ├── schemas/
-│   │   ├── auth.py              # Auth request & response schemas
-│   │   ├── scan.py              # Scan input models and structured signal schemas
-│   │   └── report.py            # Report & intelligence schemas
-│   └── services/
-│       ├── message_analyzer.py  # NLP text & urgency classifier
-│       ├── url_analyzer.py      # Domain, TLD, shortener, & homograph analyzer
-│       ├── phone_analyzer.py    # Telecom fraud & caller ID validator
-│       ├── qr_analyzer.py       # UPI reverse-charge & quishing analyzer
-│       ├── transaction_analyzer.py # Advance fee & recipient integrity analyzer
-│       ├── behavioral_analyzer.py  # Psychological manipulation scorer
-│       ├── graph_analyzer.py    # SCAM DNA fraud network generator
-│       ├── risk_engine.py       # Weighted multi-signal fusion engine
-│       └── explanation_engine.py# Dual-layer XAI, next moves, & action plans
-├── frontend/
+```
+4SLAYERS ARCHITECTURE
+├── frontend/                     # React 19 + Vite + Tailwind CSS v4 + Framer Motion
 │   ├── src/
-│   │   ├── api.js               # REST client connecting to FastAPI
-│   │   ├── App.jsx              # Router & main application structure
-│   │   ├── index.css            # Tailwind CSS v4 & custom cybersecurity styles
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx  # Authentication session state
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx       # Header navigation with status indicator
-│   │   │   ├── Footer.jsx       # Emergency cyber helplines & links
-│   │   │   ├── RiskMeter.jsx    # Visual risk gauge with dynamic score & tiers
-│   │   │   ├── ScamDNAGraph.jsx # Interactive Scam DNA network visualizer
-│   │   │   ├── DemoPresetsBar.jsx # 1-click test preset launcher
-│   │   │   └── SubmitReportModal.jsx # Community incident submission modal
-│   │   └── pages/
-│   │       ├── LandingPage.jsx  # Modern cybersecurity product landing page
-│   │       ├── DashboardPage.jsx# Threat telemetry, Recharts, Quick Scan cards
-│   │       ├── ScannerPage.jsx  # Multi-channel universal scanner
-│   │       ├── AnalysisPage.jsx # Comprehensive threat report & action plan
-│   │       ├── ReportsPage.jsx  # Community scam reports feed
-│   │       ├── IntelligencePage.jsx # 10 Scam category playbooks & attack flows
-│   │       ├── HistoryPage.jsx  # Filterable scan audit log
-│   │       └── AuthPage.jsx     # Login, Register, & 1-click analyst login
-└── start.sh                     # Unified startup runner
+│   │   ├── components/           # ScamDNAHero3D, HeroGoldenAtmosphere, AppLayout, Navbar, etc.
+│   │   ├── context/              # AuthContext, ThemeContext (Golden Light / Obsidian Dark)
+│   │   ├── pages/                # 13 Landing Sections + Workspace Console (Dashboard, Scan, History, DNA, Network, Reports, Intel, Analytics, Settings)
+│   │   └── api.js                # Centralized typed HTTP client
+│   └── index.html                # Google Fonts & Metadata
+├── backend/                      # Python + FastAPI + Document Vector Heuristics
+│   ├── api/                      # Auth, Scanning, Community Reports, Intelligence & Network Graph
+│   ├── database/                 # MongoDB with automatic SQLite3 ACID Document fallback
+│   ├── services/                 # Message, URL, Phone, QR, Transaction, Risk & Graph Analyzers
+│   ├── schemas/                  # Pydantic v2 validation models
+│   └── tests/                    # Pytest test suite covering full workflow
+├── docker-compose.yml            # Multi-container orchestration (Mongo + FastAPI + Vite)
+└── start.sh                      # One-command dual runner (FastAPI :8000 + Vite :5173)
 ```
 
 ---
 
-## 🏃 Running the Application
+## 🚀 Quickstart & Execution
 
-### Quick Start (Single Command)
+### Prerequisites
+- Python 3.10+
+- Node.js 18+ (Node 20+ recommended)
+- (Optional) MongoDB 6+ or Docker
+
+### 1. One-Click Dual Launch
 ```bash
 ./start.sh
 ```
-This automatically boots both:
-* **Backend API**: `http://127.0.0.1:8000` (API Docs: `http://127.0.0.1:8000/docs`)
-* **Frontend Web App**: `http://localhost:5173`
+This automatically launches:
+- **Backend API**: `http://127.0.0.1:8000` (Swagger docs at `http://127.0.0.1:8000/docs`)
+- **Frontend App**: `http://localhost:5173`
 
-### Manual Execution
-
-#### 1. Start the Backend
+### 2. Manual Startup
+**Backend:**
 ```bash
-export PYTHONPATH=.
+python3 -m pip install -r requirements.txt
 python3 -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-#### 2. Start the Frontend
+**Frontend:**
 ```bash
 cd frontend
+npm install
 npm run dev
 ```
-Open **`http://localhost:5173`** in your browser.
+
+### 3. Docker Compose Startup
+```bash
+docker compose up --build
+```
+
+---
+
+## 🧪 Automated Pytest Verification
+
+Run the full backend test suite verifying authentication, multimodal scanning, threat heuristic rules, Scam DNA graph generation, and data export:
+
+```bash
+PYTHONPATH=. pytest backend/tests/test_api.py -v
+```
+
+---
+
+## 🧭 Narrative Order of the 13 Landing Page Sections
+
+1. **Section 01 — Hero**: Cinematic opening with editorial grid, custom 4SLAYERS brand mark, technical eyebrow, primary golden CTA, and interactive 3D Scam DNA object.
+2. **Section 02 — Product Intelligence Strip**: Architectural grid displaying `MULTIMODAL INPUT`, `EXPLAINABLE ANALYSIS`, `CONNECTED SIGNALS`, and `ACTIONABLE PROTECTION`.
+3. **Section 03 — The Problem**: *"A SCAM IS NEVER JUST ONE SIGNAL."* Four editorial cards detailing harmless isolation, cross-channel convergence, post-loss realization, and fragmented defenses.
+4. **Section 04 — The Scanner**: Live interactive preview executing real backend heuristic analysis through progressive stages (`EXTRACTING SIGNALS → MATCHING RULES → CONNECTING EVIDENCE → GENERATING REPORT`).
+5. **Section 05 — Scam DNA**: Full-width interactive topological visualization demonstrating connected attack nodes with clickable evidence inspector.
+6. **Section 06 — Multimodal Intelligence**: Seven editorial cards spanning SMS, URLs, QR, Screenshot/OCR, Phone, Payment, and Cross-Channel Correlation.
+7. **Section 07 — Explainable AI**: *"NOT JUST A SCORE. THE REASON BEHIND IT."* Dual-mode report with plain language explanations, matched heuristic rules, and transparent unknown limitations.
+8. **Section 08 — Fraud Network**: Interactive syndicate graph with cluster filtering (Banking KYC, UPI Quishing, Telecom Arrest, Job Scam) and forensic details panel.
+9. **Section 09 — How It Works**: 5-stage process diagram (`01 COLLECT → 02 EXTRACT → 03 ANALYZE → 04 CONNECT → 05 PROTECT`).
+10. **Section 10 — Safety Recommendations**: Actionable response playbooks for suspicious messages, links, QR codes, and official impersonation.
+11. **Section 11 — Privacy & Trust**: Honest data sovereignty guarantees, ephemeral upload parsing, single-click deletion, and realistic limitations.
+12. **Section 12 — Final CTA**: Dramatic golden-to-burgundy transition with *"THE NEXT SCAM SHOULDN'T CATCH YOU OFF GUARD."*
+13. **Section 13 — Footer**: Real navigation, documentation, governance, and compact brand mark.
+
+---
+
+## 🗄️ Application Workspace Routes (`/app/*`)
+
+- `/app` — **Overview Dashboard**: Live threat velocity, active syndicates, recent dossiers, quick scanner.
+- `/app/scan` — **New Threat Scan**: Unified multimodal scanner supporting text, URLs, phone numbers, QR codes, and transactions.
+- `/app/scans` — **Scan History**: Search, vector filter, risk filter, sort by date/score, delete.
+- `/app/scans/:scanId` — **Forensic Dossier**: Risk decomposition, signal timeline, Scam DNA, next moves, actions, JSON export, analyst verification.
+- `/app/scam-dna` — **Scam DNA Explorer**: Interactive topological graph inspector with synthetic scenarios.
+- `/app/network` — **Fraud Network**: Empirical cross-cluster infrastructure graph with search and entity inspector.
+- `/app/reports` — **Community Reports**: Verified public threat reports, upvoting, and incident broadcast modal.
+- `/app/intelligence` — **Threat Intelligence**: 10 categorized threat domains with tactics and mitigation.
+- `/app/analytics` — **Analytics**: Recharts visualizations for monthly velocity, channel densities, and risk distribution.
+- `/app/notifications` — **Threat Alerts**: Real-time broadcast inbox with unread badges and severity filtering.
+- `/app/settings` — **Settings & Sovereignty**: Sensitivity tuning, notification toggles, GDPR JSON audit export, and permanent data purge.
+
+---
+
+## 🔒 Security & Data Rights
+
+- **Zero Third-Party Ad Trackers**: No advertising pixels or external telemetry beacons.
+- **SSRF & Injection Prevention**: Safe parameter validation, strict pydantic typing, and safe URL scheme inspection.
+- **Ephemeral Upload Parsing**: Uploaded QR images are evaluated in volatile memory and never retained.
+- **GDPR & CCPA Rights**: Instant single-click structured JSON archive export (`GET /api/auth/export`) and irreversible data wipe (`DELETE /api/auth/purge-data`).

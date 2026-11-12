@@ -1,198 +1,217 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  History, Search, ShieldAlert, ShieldCheck, 
-  Trash2, ChevronRight, Filter, AlertTriangle, ExternalLink 
-} from 'lucide-react';
+import { Search, Filter, Trash2, ArrowUpRight, ShieldAlert, Calendar, RefreshCw, AlertTriangle } from 'lucide-react';
 import { api } from '../api';
 
 export default function HistoryPage() {
   const navigate = useNavigate();
   const [scans, setScans] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [filterType, setFilterType] = useState('All');
-  const [filterRisk, setFilterRisk] = useState('All');
   const [search, setSearch] = useState('');
+  const [filterType, setFilterType] = useState('all');
+  const [filterRisk, setFilterRisk] = useState('all');
+  const [sortBy, setSortBy] = useState('newest');
+  const [loading, setLoading] = useState(true);
 
-  const loadHistory = async () => {
+  useEffect(() => {
+    loadScans();
+  }, []);
+
+  const loadScans = async () => {
     try {
       setLoading(true);
       const data = await api.getScans();
       setScans(data || []);
-    } catch (err) {
-      console.error('Failed to load history:', err);
+    } catch (e) {
+      console.error(e);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    loadHistory();
-  }, []);
-
-  const handleDelete = async (id, e) => {
+  const handleDelete = async (e, id) => {
     e.stopPropagation();
-    if (!window.confirm('Delete this scan record?')) return;
+    if (!window.confirm('Are you sure you wish to permanently delete this scan incident dossier?')) return;
     try {
       await api.deleteScan(id);
       setScans(prev => prev.filter(s => s.id !== id));
     } catch (err) {
-      console.error('Delete error:', err);
+      console.error(err);
     }
   };
 
-  const filtered = scans.filter(s => {
-    const matchesType = filterType === 'All' || s.type?.toLowerCase() === filterType.toLowerCase();
-    const score = s.risk_score || 0;
-    let matchesRisk = true;
-    if (filterRisk === 'Critical') matchesRisk = score >= 80;
-    else if (filterRisk === 'High') matchesRisk = score >= 60 && score < 80;
-    else if (filterRisk === 'Medium') matchesRisk = score >= 30 && score < 60;
-    else if (filterRisk === 'Low') matchesRisk = score < 30;
+  const getRiskBadge = (level) => {
+    switch (level) {
+      case 'Critical Risk':
+        return 'bg-[#B42332]/10 text-[#B42332] border-[#B42332]/30';
+      case 'High Risk':
+        return 'bg-[#A86C13]/10 text-[#A86C13] border-[#A86C13]/30';
+      case 'Medium Risk':
+        return 'bg-[#C69A42]/15 text-[#906727] dark:text-[#EAD6A0] border-[#C69A42]/30';
+      default:
+        return 'bg-[#277653]/10 text-[#277653] border-[#277653]/30';
+    }
+  };
 
-    const matchesSearch = !search || 
-      (s.input_summary || '').toLowerCase().includes(search.toLowerCase()) ||
-      (s.type || '').toLowerCase().includes(search.toLowerCase());
-
-    return matchesType && matchesRisk && matchesSearch;
+  let filtered = scans.filter((s) => {
+    const matchesSearch = s.input_summary?.toLowerCase().includes(search.toLowerCase()) ||
+                          s.id?.toLowerCase().includes(search.toLowerCase()) ||
+                          s.type?.toLowerCase().includes(search.toLowerCase());
+    const matchesType = filterType === 'all' || s.type === filterType;
+    const matchesRisk = filterRisk === 'all' || s.risk_level?.toLowerCase().includes(filterRisk.toLowerCase());
+    return matchesSearch && matchesType && matchesRisk;
   });
 
+  if (sortBy === 'newest') {
+    filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  } else if (sortBy === 'oldest') {
+    filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+  } else if (sortBy === 'highest_risk') {
+    filtered.sort((a, b) => (b.risk_score || 0) - (a.risk_score || 0));
+  }
+
   return (
-    <div className="min-h-screen bg-black text-white pt-24 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
-                Scan Audit Log
-              </h1>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-white/10 bg-white/[0.03] text-white/60">
-                IMMUTABLE TELEMETRY
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm text-white/50 font-light">
-              Comprehensive chronological archive of analyzed messages, domains, callers, and transactions.
-            </p>
-          </div>
-
-          <button
-            onClick={() => navigate('/scan')}
-            className="px-5 py-2 rounded-full font-mono text-xs uppercase tracking-wider bg-white text-black hover:bg-white/90 font-medium transition cursor-pointer"
-          >
-            <span>Run New Scan ↗</span>
-          </button>
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+      
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E5DCCB] dark:border-[#2E2820]">
+        <div>
+          <span className="font-mono text-[10px] uppercase font-bold text-[#906727] dark:text-[#EAD6A0] tracking-widest block mb-1">
+            FORENSIC LOGS // ARCHIVED INCIDENTS
+          </span>
+          <h1 className="font-display font-bold text-2xl sm:text-3xl text-[#242019] dark:text-[#FBF8F0]">
+            Scan Dossier History
+          </h1>
         </div>
 
-        {/* Filters Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white/[0.02] border border-white/[0.08] p-4 rounded-2xl">
-          <div className="relative w-full md:w-80">
-            <Search className="w-3.5 h-3.5 text-white/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Filter by keyword or payload..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-black border border-white/[0.1] rounded-xl pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-white/40 placeholder:text-white/30 font-mono"
-            />
-          </div>
+        <button
+          onClick={loadScans}
+          className="p-2 rounded-lg border border-[#E5DCCB] dark:border-[#2E2820] text-[#777064] hover:text-[#C69A42] transition self-start sm:self-auto"
+          title="Refresh dossier list"
+        >
+          <RefreshCw className="w-4 h-4" />
+        </button>
+      </div>
 
-          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto font-mono text-xs">
-            <select
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-              className="bg-black border border-white/[0.1] text-white/80 rounded-xl px-3 py-2 focus:outline-none"
-            >
-              <option value="All">All Channels</option>
-              <option value="Message">Messages</option>
-              <option value="URL">URLs</option>
-              <option value="Phone">Phone Numbers</option>
-              <option value="QR">QR Codes</option>
-              <option value="Transaction">Transactions</option>
-            </select>
-
-            <select
-              value={filterRisk}
-              onChange={(e) => setFilterRisk(e.target.value)}
-              className="bg-black border border-white/[0.1] text-white/80 rounded-xl px-3 py-2 focus:outline-none"
-            >
-              <option value="All">All Risk Levels</option>
-              <option value="Critical">Critical Risk (80+)</option>
-              <option value="High">High Risk (60–79)</option>
-              <option value="Medium">Medium Risk (30–59)</option>
-              <option value="Low">Low Risk (&lt;30)</option>
-            </select>
-          </div>
+      {/* Filters Toolbar */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {/* Search Input */}
+        <div className="relative">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#777064]" />
+          <input
+            type="text"
+            placeholder="Search keywords, IDs..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full rounded-xl border border-[#E5DCCB] dark:border-[#2E2820] bg-white dark:bg-[#16130F] pl-9 pr-3 py-2 text-xs text-[#242019] dark:text-[#FBF8F0] focus:outline-none focus:border-[#C69A42]"
+          />
         </div>
 
-        {/* Table / List */}
+        {/* Filter by Type */}
+        <select
+          value={filterType}
+          onChange={(e) => setFilterType(e.target.value)}
+          className="rounded-xl border border-[#E5DCCB] dark:border-[#2E2820] bg-white dark:bg-[#16130F] px-3 py-2 text-xs text-[#242019] dark:text-[#FBF8F0] focus:outline-none focus:border-[#C69A42]"
+        >
+          <option value="all">All Threat Vectors</option>
+          <option value="multimodal">Multimodal (Combined)</option>
+          <option value="message">SMS / Chat</option>
+          <option value="url">URL / Domain</option>
+          <option value="phone">Phone / Caller</option>
+          <option value="qr">QR Code</option>
+          <option value="transaction">Payment Transfer</option>
+        </select>
+
+        {/* Filter by Risk */}
+        <select
+          value={filterRisk}
+          onChange={(e) => setFilterRisk(e.target.value)}
+          className="rounded-xl border border-[#E5DCCB] dark:border-[#2E2820] bg-white dark:bg-[#16130F] px-3 py-2 text-xs text-[#242019] dark:text-[#FBF8F0] focus:outline-none focus:border-[#C69A42]"
+        >
+          <option value="all">All Risk Levels</option>
+          <option value="critical">Critical Risk</option>
+          <option value="high">High Risk</option>
+          <option value="medium">Medium Risk</option>
+          <option value="low">Low / Safe</option>
+        </select>
+
+        {/* Sorting */}
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="rounded-xl border border-[#E5DCCB] dark:border-[#2E2820] bg-white dark:bg-[#16130F] px-3 py-2 text-xs text-[#242019] dark:text-[#FBF8F0] focus:outline-none focus:border-[#C69A42]"
+        >
+          <option value="newest">Sort: Newest First</option>
+          <option value="oldest">Sort: Oldest First</option>
+          <option value="highest_risk">Sort: Highest Risk Score</option>
+        </select>
+      </div>
+
+      {/* Scans List Table */}
+      <div className="rounded-2xl border border-[#E5DCCB] dark:border-[#2E2820] bg-white dark:bg-[#16130F] shadow-sm overflow-hidden">
         {loading ? (
-          <div className="py-20 text-center">
-            <div className="w-8 h-8 border border-white/20 border-t-white rounded-full animate-spin mx-auto mb-3"></div>
-            <p className="text-white/40 font-mono text-xs">Loading audit records...</p>
+          <div className="p-12 text-center text-xs font-mono text-[#777064]">
+            Loading archived scan dossiers...
           </div>
         ) : filtered.length === 0 ? (
-          <div className="p-12 text-center rounded-2xl bg-white/[0.01] border border-white/[0.08]">
-            <History className="w-8 h-8 text-white/20 mx-auto mb-2" />
-            <h3 className="text-sm font-medium text-white mb-1">No matching logs found</h3>
-            <p className="text-xs text-white/40 font-mono">Try adjusting your channel or severity filter.</p>
+          <div className="p-12 text-center text-xs font-mono text-[#777064]">
+            No scan incidents matched your active filters.
           </div>
         ) : (
-          <div className="bg-white/[0.02] border border-white/[0.1] rounded-2xl overflow-hidden divide-y divide-white/[0.06]">
-            {filtered.map((item) => {
-              const isHigh = (item.risk_score || 0) >= 60;
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => navigate(`/scan/analysis/${item.id}`, { state: { scanData: item } })}
-                  className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-white/[0.02] transition cursor-pointer"
-                >
-                  <div className="flex items-start sm:items-center gap-3.5">
-                    <div className={`p-2 rounded-xl shrink-0 ${isHigh ? 'bg-rose-950/20 text-rose-400 border border-rose-500/20' : 'bg-emerald-950/20 text-emerald-400 border border-emerald-500/20'}`}>
-                      {isHigh ? <ShieldAlert className="w-4 h-4" /> : <ShieldCheck className="w-4 h-4" />}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-white/40">
-                          {item.type}
-                        </span>
-                        <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded border ${isHigh ? 'border-rose-500/30 text-rose-400 bg-rose-950/20' : 'border-emerald-500/30 text-emerald-400 bg-emerald-950/20'}`}>
-                          {item.risk_level || (isHigh ? 'High Risk' : 'Low Risk')}
-                        </span>
-                        <span className="text-[10px] text-white/30 font-mono">
-                          {new Date(item.created_at).toLocaleString()}
-                        </span>
-                      </div>
-                      <p className="text-xs font-mono text-white/80 max-w-2xl break-all">
-                        {item.input_summary || item.title || 'Telemetry payload'}
-                      </p>
-                    </div>
+          <div className="divide-y divide-[#E5DCCB] dark:divide-[#2E2820]">
+            {filtered.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => navigate(`/app/scans/${item.id}`)}
+                className="p-4 sm:p-5 flex items-center justify-between gap-4 hover:bg-[#FBF8F0] dark:hover:bg-[#1C1813] transition cursor-pointer"
+              >
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="w-11 h-11 rounded-xl bg-white dark:bg-[#1C1813] border border-[#C69A42] flex flex-col items-center justify-center font-display font-bold text-xs text-[#242019] dark:text-[#FBF8F0] shrink-0 shadow-2xs">
+                    <span>{item.risk_score}</span>
+                    <span className="font-mono text-[8px] text-[#777064]">SCORE</span>
                   </div>
 
-                  <div className="flex items-center justify-between sm:justify-end gap-5 shrink-0 text-xs font-mono">
-                    <div className="text-right">
-                      <span className="text-sm font-light text-white">{item.risk_score}</span>
-                      <span className="text-white/40">/100</span>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <span className={`px-2 py-0.2 rounded text-[10px] font-mono font-bold uppercase tracking-wider border ${getRiskBadge(item.risk_level)}`}>
+                        {item.risk_level}
+                      </span>
+                      <span className="text-[10px] font-mono text-[#777064] uppercase font-semibold">
+                        [{item.type}]
+                      </span>
+                      <span className="text-[10px] font-mono text-[#777064] hidden sm:inline">
+                        ID: {item.id.slice(0, 8)}
+                      </span>
                     </div>
-
-                    <button
-                      onClick={(e) => handleDelete(item.id, e)}
-                      title="Purge record"
-                      className="p-1.5 rounded-lg text-white/30 hover:text-rose-400 hover:bg-rose-950/20 transition cursor-pointer"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-
-                    <ChevronRight className="w-3.5 h-3.5 text-white/30" />
+                    <h3 className="text-xs sm:text-sm font-semibold text-[#242019] dark:text-[#FBF8F0] truncate">
+                      {item.input_summary}
+                    </h3>
                   </div>
                 </div>
-              );
-            })}
+
+                <div className="flex items-center gap-4 shrink-0">
+                  <span className="text-xs font-mono text-[#777064] hidden md:inline">
+                    {new Date(item.created_at).toLocaleDateString()}
+                  </span>
+
+                  <button
+                    onClick={(e) => handleDelete(e, item.id)}
+                    className="p-1.5 rounded-lg text-[#777064] hover:text-[#B42332] hover:bg-[#B42332]/10 transition"
+                    title="Delete record"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+
+                  <span className="text-xs font-mono text-[#C69A42] flex items-center gap-1 font-semibold">
+                    <span>Inspect</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         )}
-
       </div>
+
     </div>
   );
 }

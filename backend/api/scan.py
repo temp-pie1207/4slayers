@@ -6,6 +6,7 @@ from backend.database.store import get_db
 from backend.schemas.scan import (
     MessageScanRequest, URLScanRequest, PhoneScanRequest,
     QRScanRequest, ScreenshotScanRequest, TransactionScanRequest,
+    MultimodalScanRequest, ScanFeedbackRequest,
     ScanResultResponse
 )
 from backend.services.message_analyzer import message_analyzer
@@ -464,3 +465,160 @@ def delete_scan(id: str, current_user: Optional[dict] = Depends(get_current_user
     scans_col = db.get_collection("scans")
     deleted = scans_col.delete_one({"id": id})
     return {"status": "success", "deleted": deleted}
+
+@router.post("/multimodal", response_model=ScanResultResponse)
+def scan_multimodal(req: MultimodalScanRequest, current_user: Optional[dict] = Depends(get_current_user)):
+    all_signals = []
+    extracted_urls = []
+    extracted_phones = []
+    msg_score = 0.0
+    url_score = 0.0
+    phone_score = 0.0
+    tx_score = 0.0
+    qr_score = 0.0
+    beh_score = 0.0
+    impersonated_brand = None
+    input_summaries = []
+
+    # 1. Message channel
+    if req.message:
+        msg_res = message_analyzer.analyze(req.message, req.sender_info)
+        beh_res = behavioral_analyzer.analyze(req.message)
+        msg_score = msg_res["score"]
+        beh_score = max(beh_score, beh_res["score"])
+        all_signals.extend(msg_res["signals"])
+        all_signals.extend(beh_res["signals"])
+        extracted_urls.extend(msg_res["extracted_urls"])
+        extracted_phones.extend(msg_res["extracted_phones"])
+        if msg_res.get("impersonated_entity"):
+            impersonated_brand = msg_res["impersonated_entity"]
+        input_summaries.append(f"Text: {req.message[:50]}...")
+
+    # 2. URL channel
+    target_url = req.url or (extracted_urls[0] if extracted_urls else None)
+    if target_url:
+        u_res = url_analyzer.analyze(target_url)
+        url_score = u_res["score"]
+        all_signals.extend(u_res["signals"])
+        if not impersonated_brand and u_res.get("spoofed_brand"):
+            impersonated_brand = u_res["spoofed_brand"]
+        if req.url:
+            input_summaries.append(f"URL: {req.url}")
+        if target_url not in extracted_urls:
+            extracted_urls.append(target_url)
+
+    # 3. Phone channel
+    target_phone = req.phone or (extracted_phones[0] if extracted_phones else None)
+    if target_phone:
+        p_res = phone_analyzer.analyze(target_phone, None, "call")
+        phone_score = p_res["score"]
+        all_signals.extend(p_res["signals"])
+        if req.phone:
+            input_summaries.append(f"Phone: {req.phone}")
+        if target_phone not in extracted_phones:
+            extracted_phones.append(target_phone)
+
+    # 4. QR channel
+    if req.qr_content or req.image_base64:
+        q_res = qr_analyzer.analyze(req.qr_content, req.image_base64)
+        qr_score = q_res["score"]
+        all_signals.extend(q_res["signals"])
+        input_summaries.append(f"QR: {q_res.get('decoded_content', '')[:30]}")
+
+    # 5. Payment channel
+    if req.payment_recipient or (req.amount and req.amount > 0):
+        t_res = transaction_analyzer.analyze(
+            amount=req.amount or 0.0,
+            recipient=req.payment_recipient or "unspecified",
+            payment_method=req.payment_method or "UPI / Wire",
+            description=req.message or ""
+        )
+        tx_score = t_res["score"]
+        all_signals.extend(t_res["signals"])
+        input_summaries.append(f"Payment: {req.payment_recipient or 'Recipient'}")
+
+    # Cross-Channel Correlation
+    active_channels = sum([bool(req.message), bool(target_url), bool(target_phone), bool(req.qr_content or req.image_base64), bool(req.payment_recipient)])
+    cross_correlation_detected = active_channels >= 2
+    if cross_correlation_detected:
+        all_signals.append({
+            "signal": "cross_channel_correlation",
+            "severity": 0.94,
+            "category": "Multi-Channel Convergence",
+            "reason": f"Correlated {active_channels} independent attack vectors (message, communication endpoint, and financial destination) forming a cohesive fraud infrastructure.",
+            "level": "high"
+        })
+
+    pattern_name = f"Multi-Vector {impersonated_brand} Hijack & Extortion" if impersonated_brand else ("Converged Multi-Channel Social Engineering Attack" if cross_correlation_detected else "Multi-Signal Threat Investigation")
+    pattern_score = 92.0 if cross_correlation_detected else 40.0
+
+    dna = graph_analyzer.build_scam_dna(
+        scan_type="multimodal",
+        input_summary=" | ".join(input_summaries) or "Multi-Signal Fraud Scan",
+        extracted_urls=extracted_urls,
+        extracted_phones=extracted_phones,
+        payment_recipient=req.payment_recipient,
+        impersonated_brand=impersonated_brand,
+        identified_pattern=pattern_name,
+        risk_score=int(max(msg_score, url_score, phone_score, tx_score, qr_score, 50))
+    )
+
+    comp_risk = risk_engine.compute_composite_risk(
+        message_score=msg_score or 20.0,
+        url_score=url_score or 20.0,
+        behavior_score=max(beh_score, 25.0),
+        pattern_score=pattern_score,
+        network_score=85.0 if cross_correlation_detected else 30.0,
+        confidence_multiplier=1.25 if cross_correlation_detected else dna.get("confidence_multiplier", 1.0)
+    )
+
+    explanations = explanation_engine.generate_explanations(
+        scan_type="multimodal",
+        risk_score=comp_risk["risk_score"],
+        signals=all_signals,
+        impersonated_entity=impersonated_brand,
+        extracted_urls=extracted_urls
+    )
+
+    next_moves = explanation_engine.predict_next_moves(comp_risk["risk_score"], "multimodal", all_signals)
+    actions = explanation_engine.get_recommended_actions(comp_risk["risk_score"], "multimodal")
+
+    scan_record = {
+        "id": str(uuid.uuid4()),
+        "user_id": current_user["id"] if current_user else "anonymous",
+        "type": "multimodal",
+        "input_summary": " | ".join(input_summaries) or "Unified Multi-Signal Investigation",
+        "raw_input": req.model_dump() if hasattr(req, "model_dump") else req.dict(),
+        "risk_score": comp_risk["risk_score"],
+        "risk_level": comp_risk["risk_level"],
+        "breakdown": comp_risk["breakdown"],
+        "signals": all_signals,
+        "explanations": explanations,
+        "scam_dna": dna,
+        "next_moves": next_moves,
+        "recommended_actions": actions,
+        "created_at": datetime.utcnow().isoformat(),
+        "is_demo": req.is_demo
+    }
+
+    return save_and_format_scan(scan_record)
+
+@router.post("/{id}/feedback")
+def submit_scan_feedback(id: str, req: ScanFeedbackRequest, current_user: Optional[dict] = Depends(get_current_user)):
+    db = get_db()
+    scans_col = db.get_collection("scans")
+    scan = scans_col.find_one({"id": id})
+    if not scan:
+        raise HTTPException(status_code=404, detail="Scan record not found")
+    
+    feedback_data = {
+        "is_helpful": req.is_helpful,
+        "rating": req.rating,
+        "user_verdict": req.user_verdict,
+        "notes": req.notes,
+        "submitted_at": datetime.utcnow().isoformat(),
+        "user_id": current_user["id"] if current_user else "anonymous"
+    }
+    scans_col.update_one({"id": id}, {"$set": {"feedback": feedback_data}})
+    return {"status": "success", "id": id, "feedback": feedback_data}
+

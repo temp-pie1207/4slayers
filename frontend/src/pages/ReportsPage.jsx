@@ -1,201 +1,330 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  FileText, Plus, Search, ThumbsUp, ShieldAlert, 
-  CheckCircle2, Globe, Phone, CreditCard, Filter, AlertCircle 
-} from 'lucide-react';
+import { Users, Search, Plus, ThumbsUp, ShieldCheck, AlertTriangle, ArrowUpRight, MessageSquare, Globe, Phone, CreditCard, X } from 'lucide-react';
 import { api } from '../api';
-import SubmitReportModal from '../components/SubmitReportModal';
 
 export default function ReportsPage() {
   const [reports, setReports] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [selectedType, setSelectedType] = useState('All');
-  const [modalOpen, setModalOpen] = useState(false);
+  const [filterType, setFilterType] = useState('All');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const categories = [
-    'All',
-    'Banking Scams',
-    'UPI Payment Scam',
-    'Delivery Scams',
-    'Fake Customer Support',
-    'Job Scams',
-    'Government Impersonation'
-  ];
+  // Form states
+  const [newTitle, setNewTitle] = useState('');
+  const [newType, setNewType] = useState('Banking / KYC');
+  const [newDesc, setNewDesc] = useState('');
+  const [newPhone, setNewPhone] = useState('');
+  const [newUrl, setNewUrl] = useState('');
+  const [newRecipient, setNewRecipient] = useState('');
+  const [newLoss, setNewLoss] = useState('');
 
-  const fetchReports = async () => {
+  useEffect(() => {
+    loadReports();
+  }, [search, filterType]);
+
+  const loadReports = async () => {
     try {
       setLoading(true);
-      const data = await api.getReports(search, selectedType);
+      const data = await api.getReports(search, filterType);
       setReports(data || []);
-    } catch (err) {
-      console.error('Error fetching reports:', err);
+    } catch (e) {
+      console.error(e);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchReports();
-  }, [selectedType]);
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    fetchReports();
-  };
-
-  const handleUpvote = async (id, e) => {
-    e.stopPropagation();
+  const handleUpvote = async (id) => {
     try {
-      const res = await api.upvoteReport(id);
-      setReports(prev => prev.map(r => r.id === id ? { ...r, upvotes: res.upvotes } : r));
-    } catch (err) {
-      console.error('Failed to upvote:', err);
+      await api.upvoteReport(id);
+      setReports(prev => prev.map(r => r.id === id ? { ...r, upvotes: (r.upvotes || 0) + 1 } : r));
+    } catch (e) {
+      console.error(e);
     }
   };
 
+  const handleSubmitReport = async (e) => {
+    e.preventDefault();
+    if (!newTitle.trim() || !newDesc.trim()) return;
+
+    setSubmitting(true);
+    try {
+      const res = await api.createReport({
+        title: newTitle,
+        scam_type: newType,
+        description: newDesc,
+        phone: newPhone || null,
+        url: newUrl || null,
+        recipient: newRecipient || null,
+        loss_amount: newLoss ? parseFloat(newLoss) : 0
+      });
+      setReports(prev => [res, ...prev]);
+      setIsModalOpen(false);
+      // Reset form
+      setNewTitle('');
+      setNewDesc('');
+      setNewPhone('');
+      setNewUrl('');
+      setNewRecipient('');
+      setNewLoss('');
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const scamTypes = ['All', 'Banking / KYC', 'UPI / Quishing', 'Digital Arrest', 'Job & Task Scam', 'Investment / Crypto', 'Delivery / Customs'];
+
   return (
-    <div className="min-h-screen bg-black text-white pt-24 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        
-        {/* Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
-                Community Threat Registry
-              </h1>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-white/10 bg-white/[0.03] text-white/60">
-                CROWD TELEMETRY
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm text-white/50 font-light">
-              Incident reports submitted by operators and cross-verified by 4SLAYERS AI.
-            </p>
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+      
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E5DCCB] dark:border-[#2E2820]">
+        <div>
+          <div className="flex items-center gap-2 mb-1.5 font-mono text-[10px] text-[#906727] dark:text-[#EAD6A0] font-bold uppercase tracking-widest">
+            <Users className="w-3.5 h-3.5 text-[#C69A42]" />
+            <span>COMMUNITY INTEL // DECENTRALIZED VIGILANCE</span>
           </div>
-
-          <button
-            onClick={() => setModalOpen(true)}
-            className="px-5 py-2 rounded-full font-mono text-xs uppercase tracking-wider bg-white text-black hover:bg-white/90 font-medium transition flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Submit Threat Report</span>
-          </button>
+          <h1 className="font-display font-bold text-2xl sm:text-3xl text-[#242019] dark:text-[#FBF8F0]">
+            Community Threat Reports
+          </h1>
+          <p className="text-xs sm:text-sm text-[#777064] dark:text-[#A8A095] mt-0.5">
+            Verified incident alerts submitted by analysts and everyday citizens to protect the collective.
+          </p>
         </div>
 
-        {/* Search and Category Filters */}
-        <div className="flex flex-col md:flex-row items-center gap-4">
-          <form onSubmit={handleSearchSubmit} className="relative w-full md:w-96">
-            <Search className="w-3.5 h-3.5 text-white/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search by phone, URL, or actor..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-black border border-white/[0.1] rounded-xl pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-white/40 placeholder:text-white/30 font-mono"
-            />
-          </form>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-gold-shimmer text-xs uppercase font-bold tracking-wider border border-[#C69A42] shadow-sm self-start sm:self-auto cursor-pointer"
+        >
+          <Plus className="w-4 h-4" />
+          <span>Report Threat</span>
+        </button>
+      </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto w-full pb-2 md:pb-0 font-mono text-xs">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedType(cat)}
-                className={`px-3 py-1.5 rounded-full whitespace-nowrap transition cursor-pointer text-xs ${
-                  selectedType === cat
-                    ? 'bg-white text-black font-semibold'
-                    : 'bg-black text-white/50 hover:text-white border border-white/[0.08]'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+      {/* Filter and Search Bar */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Scam Type Pills */}
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          {scamTypes.map((t) => (
+            <button
+              key={t}
+              onClick={() => setFilterType(t)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider font-semibold transition cursor-pointer ${
+                filterType === t
+                  ? 'bg-[#242019] text-[#FBF8F0] dark:bg-[#FBF8F0] dark:text-[#242019] shadow-xs'
+                  : 'bg-white dark:bg-[#16130F] border border-[#E5DCCB] dark:border-[#2E2820] text-[#777064] dark:text-[#A8A095] hover:border-[#C69A42]'
+              }`}
+            >
+              {t}
+            </button>
+          ))}
         </div>
 
-        {/* Reports Grid */}
+        {/* Search Input */}
+        <div className="relative w-full md:w-72">
+          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#777064]" />
+          <input
+            type="text"
+            placeholder="Search reports by keyword, phone..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full rounded-xl border border-[#E5DCCB] dark:border-[#2E2820] bg-white dark:bg-[#16130F] pl-8 pr-3 py-2 text-xs text-[#242019] dark:text-[#FBF8F0] focus:outline-none focus:border-[#C69A42]"
+          />
+        </div>
+      </div>
+
+      {/* Reports Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading ? (
-          <div className="py-20 text-center">
-            <div className="w-8 h-8 border border-white/20 border-t-white rounded-full animate-spin mx-auto mb-3"></div>
-            <p className="text-white/40 font-mono text-xs">Syncing community threat telemetry...</p>
+          <div className="col-span-full py-16 text-center font-mono text-xs text-[#777064]">
+            Loading community alerts...
           </div>
         ) : reports.length === 0 ? (
-          <div className="p-12 text-center rounded-2xl bg-white/[0.01] border border-white/[0.08]">
-            <FileText className="w-8 h-8 text-white/20 mx-auto mb-2" />
-            <h3 className="text-sm font-medium text-white mb-1">No community reports found</h3>
-            <p className="text-xs text-white/40 font-mono">Try searching with different terms or select 'All'.</p>
+          <div className="col-span-full py-16 text-center font-mono text-xs text-[#777064]">
+            No community reports matching active filters.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {reports.map((report) => (
-              <div
-                key={report.id}
-                className="bg-white/[0.02] border border-white/[0.08] hover:border-white/25 rounded-2xl p-5 flex flex-col justify-between transition group backdrop-blur-sm"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3 text-[10px] font-mono">
-                    <span className="px-2 py-0.5 rounded border border-white/10 bg-black text-white/60 uppercase">
-                      {report.scam_type}
+          reports.map((rep) => (
+            <div
+              key={rep.id}
+              className="p-6 rounded-2xl border border-[#E5DCCB] dark:border-[#2E2820] bg-white dark:bg-[#16130F] shadow-sm flex flex-col justify-between hover:border-[#C69A42] transition duration-200"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-mono text-[10px] uppercase font-bold tracking-wider px-2 py-0.2 rounded bg-[#EAD6A0]/20 dark:bg-[#C69A42]/10 text-[#906727] dark:text-[#EAD6A0] border border-[#C69A42]/30">
+                    {rep.scam_type}
+                  </span>
+                  {rep.verified && (
+                    <span className="flex items-center gap-1 text-[10px] font-mono text-[#277653] font-semibold">
+                      <ShieldCheck className="w-3 h-3" />
+                      <span>VERIFIED</span>
                     </span>
-                    <span className="text-white/30">
-                      {new Date(report.created_at).toLocaleDateString()}
-                    </span>
-                  </div>
-
-                  <h3 className="text-sm font-medium text-white mb-2 leading-snug">
-                    {report.title}
-                  </h3>
-                  <p className="text-xs text-white/50 font-light leading-relaxed mb-4 line-clamp-3">
-                    {report.description}
-                  </p>
-
-                  <div className="space-y-1.5 text-xs font-mono text-white/70 bg-black p-3 rounded-xl border border-white/[0.06] mb-4">
-                    {report.phone && (
-                      <div className="flex items-center gap-2 truncate">
-                        <Phone className="w-3 h-3 text-white/40 shrink-0" />
-                        <span className="text-white/90 truncate">{report.phone}</span>
-                      </div>
-                    )}
-                    {report.url && (
-                      <div className="flex items-center gap-2 truncate">
-                        <Globe className="w-3 h-3 text-white/40 shrink-0" />
-                        <span className="text-white/90 truncate">{report.url}</span>
-                      </div>
-                    )}
-                    {report.loss_amount > 0 && (
-                      <div className="flex items-center gap-2 text-rose-400">
-                        <CreditCard className="w-3 h-3 shrink-0" />
-                        <span>Loss: ${report.loss_amount.toLocaleString()}</span>
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
 
-                <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono">
-                  <button
-                    onClick={(e) => handleUpvote(report.id, e)}
-                    className="flex items-center gap-1.5 text-white/50 hover:text-white transition cursor-pointer"
-                  >
-                    <ThumbsUp className="w-3.5 h-3.5" />
-                    <span>{report.upvotes || 0} confirmations</span>
-                  </button>
+                <h3 className="font-display font-bold text-base text-[#242019] dark:text-[#FBF8F0] mb-2">
+                  {rep.title}
+                </h3>
+                <p className="text-xs text-[#777064] dark:text-[#A8A095] leading-relaxed mb-4 line-clamp-3">
+                  {rep.description}
+                </p>
 
-                  <span className="text-[10px] text-cyan-400 uppercase">
-                    Verified Pattern
-                  </span>
+                {/* Indicators Pills */}
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {rep.indicators?.map((ind, idx) => (
+                    <span
+                      key={idx}
+                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FBF8F0] dark:bg-[#12100E] border border-[#E5DCCB] dark:border-[#2E2820] text-[#777064] dark:text-[#9E9688]"
+                    >
+                      {ind}
+                    </span>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        )}
 
-        {/* Modal */}
-        <SubmitReportModal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          onSubmitted={fetchReports}
-        />
+              {/* Card Footer: Upvote & Date */}
+              <div className="pt-3 border-t border-[#E5DCCB]/60 dark:border-[#2E2820] flex items-center justify-between text-xs font-mono">
+                <span className="text-[#777064] text-[11px]">
+                  {new Date(rep.created_at).toLocaleDateString()}
+                </span>
+
+                <button
+                  onClick={() => handleUpvote(rep.id)}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg border border-[#E5DCCB] dark:border-[#2E2820] bg-[#FBF8F0] dark:bg-[#12100E] hover:border-[#C69A42] text-[#242019] dark:text-[#FBF8F0] font-semibold transition cursor-pointer"
+                >
+                  <ThumbsUp className="w-3.5 h-3.5 text-[#C69A42]" />
+                  <span>{rep.upvotes || 1}</span>
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
+
+      {/* Report Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="w-full max-w-lg rounded-2xl border border-[#E5DCCB] dark:border-[#332B20] bg-white dark:bg-[#16130F] p-6 sm:p-8 shadow-2xl space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E5DCCB] dark:border-[#2E2820]">
+              <h2 className="font-display font-bold text-lg text-[#242019] dark:text-[#FBF8F0]">
+                Submit Threat Report
+              </h2>
+              <button onClick={() => setIsModalOpen(false)} className="text-[#777064] hover:text-[#242019]">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmitReport} className="space-y-4">
+              <div>
+                <label className="block text-xs font-mono font-medium uppercase text-[#777064] mb-1">
+                  Incident Title
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Fake Bank KYC SMS with .xyz domain"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                  className="w-full rounded-xl border border-[#E5DCCB] dark:border-[#332B20] bg-[#FBF8F0]/40 dark:bg-[#12100E] px-3.5 py-2 text-xs text-[#242019] dark:text-[#FBF8F0] focus:outline-none focus:border-[#C69A42]"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-mono font-medium uppercase text-[#777064] mb-1">
+                    Scam Category
+                  </label>
+                  <select
+                    value={newType}
+                    onChange={(e) => setNewType(e.target.value)}
+                    className="w-full rounded-xl border border-[#E5DCCB] dark:border-[#332B20] bg-[#FBF8F0]/40 dark:bg-[#12100E] px-3 py-2 text-xs text-[#242019] dark:text-[#FBF8F0]"
+                  >
+                    <option value="Banking / KYC">Banking / KYC</option>
+                    <option value="UPI / Quishing">UPI / Quishing</option>
+                    <option value="Digital Arrest">Digital Arrest</option>
+                    <option value="Job & Task Scam">Job & Task Scam</option>
+                    <option value="Investment / Crypto">Investment / Crypto</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-mono font-medium uppercase text-[#777064] mb-1">
+                    Estimated Loss ($)
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="0.00"
+                    value={newLoss}
+                    onChange={(e) => setNewLoss(e.target.value)}
+                    className="w-full rounded-xl border border-[#E5DCCB] dark:border-[#332B20] bg-[#FBF8F0]/40 dark:bg-[#12100E] px-3.5 py-2 text-xs text-[#242019] dark:text-[#FBF8F0]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono font-medium uppercase text-[#777064] mb-1">
+                  Incident Description & Modus Operandi
+                </label>
+                <textarea
+                  rows={3}
+                  required
+                  placeholder="Explain how the scam occurred, what the attacker demanded, and what links/numbers were used..."
+                  value={newDesc}
+                  onChange={(e) => setNewDesc(e.target.value)}
+                  className="w-full rounded-xl border border-[#E5DCCB] dark:border-[#332B20] bg-[#FBF8F0]/40 dark:bg-[#12100E] p-3 text-xs text-[#242019] dark:text-[#FBF8F0] focus:outline-none focus:border-[#C69A42]"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-mono font-medium uppercase text-[#777064] mb-1">
+                    Phone / Sender CLI
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="+91-98..."
+                    value={newPhone}
+                    onChange={(e) => setNewPhone(e.target.value)}
+                    className="w-full rounded-xl border border-[#E5DCCB] dark:border-[#332B20] bg-[#FBF8F0]/40 dark:bg-[#12100E] px-3 py-2 text-xs text-[#242019] dark:text-[#FBF8F0]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono font-medium uppercase text-[#777064] mb-1">
+                    Malicious URL
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="http://..."
+                    value={newUrl}
+                    onChange={(e) => setNewUrl(e.target.value)}
+                    className="w-full rounded-xl border border-[#E5DCCB] dark:border-[#332B20] bg-[#FBF8F0]/40 dark:bg-[#12100E] px-3 py-2 text-xs text-[#242019] dark:text-[#FBF8F0]"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-[#E5DCCB] dark:border-[#2E2820] flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 rounded-xl border border-[#E5DCCB] dark:border-[#332B20] text-xs font-medium text-[#777064]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="px-5 py-2 rounded-xl btn-gold-shimmer text-xs uppercase font-bold tracking-wider border border-[#C69A42]"
+                >
+                  {submitting ? 'Submitting...' : 'Broadcast to Community'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="100%" height="100%">
+  <defs>
+    <linearGradient id="payBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181512"/>
+      <stop offset="100%" stop-color="#0E0C0A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="480" height="320" rx="16" fill="url(#payBg)" stroke="#332B20" stroke-width="1.5"/>
+
+  <!-- Left: Flow Diagram of Money Trail -->
+  <g transform="translate(24, 28)">
+    <text x="0" y="16" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#EAD6A0">
+      MULE ACCOUNT &amp; LAUNDERING DISPERSION
+    </text>
+
+    <!-- Victim Node -->
+    <g transform="translate(10, 40)">
+      <rect width="84" height="48" rx="8" fill="#1C1813" stroke="#C69A42" stroke-width="1"/>
+      <text x="8" y="18" font-family="'JetBrains Mono', monospace" font-size="8" fill="#9E9688">VICTIM ACCOUNT</text>
+      <text x="8" y="34" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" fill="#FBF8F0">₹50,000</text>
+    </g>
+
+    <!-- Arrow to Mule Primary -->
+    <path d="M100,64 L150,64" stroke="#C69A42" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <polygon points="152,64 146,61 146,67" fill="#C69A42"/>
+
+    <!-- Primary Mule VPA -->
+    <g transform="translate(156, 36)">
+      <rect width="112" height="56" rx="8" fill="#221114" stroke="#B42332" stroke-width="1.2"/>
+      <rect x="6" y="6" width="60" height="12" rx="3" fill="#B42332" fill-opacity="0.3"/>
+      <text x="10" y="15" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700" fill="#FF7B88">PRIMARY MULE</text>
+      <text x="6" y="34" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#FBF8F0">fast-pay98@ybl</text>
+      <text x="6" y="47" font-family="'Outfit', sans-serif" font-size="8" fill="#FF8A96">Layer 1 Funnel (54 Reports)</text>
+    </g>
+
+    <!-- Dispersion Arrows -->
+    <path d="M272,64 L310,35" stroke="#B42332" stroke-width="1.2"/>
+    <path d="M272,64 L310,64" stroke="#B42332" stroke-width="1.2"/>
+    <path d="M272,64 L310,95" stroke="#B42332" stroke-width="1.2"/>
+
+    <!-- Sub Mule 1 -->
+    <g transform="translate(314, 18)">
+      <rect width="90" height="30" rx="6" fill="#1C1813" stroke="#3D3425" stroke-width="0.8"/>
+      <text x="6" y="14" font-family="'JetBrains Mono', monospace" font-size="8" fill="#EAD6A0">mule_a@paytm</text>
+      <text x="6" y="24" font-family="'Space Grotesk', sans-serif" font-size="8" fill="#9E9688">₹15,000</text>
+    </g>
+
+    <!-- Sub Mule 2 -->
+    <g transform="translate(314, 52)">
+      <rect width="90" height="30" rx="6" fill="#1C1813" stroke="#3D3425" stroke-width="0.8"/>
+      <text x="6" y="14" font-family="'JetBrains Mono', monospace" font-size="8" fill="#EAD6A0">mule_b@sbi</text>
+      <text x="6" y="24" font-family="'Space Grotesk', sans-serif" font-size="8" fill="#9E9688">₹20,000</text>
+    </g>
+
+    <!-- Sub Mule 3 -->
+    <g transform="translate(314, 86)">
+      <rect width="90" height="30" rx="6" fill="#1C1813" stroke="#3D3425" stroke-width="0.8"/>
+      <text x="6" y="14" font-family="'JetBrains Mono', monospace" font-size="8" fill="#EAD6A0">crypto_otc@trc20</text>
+      <text x="6" y="24" font-family="'Space Grotesk', sans-serif" font-size="8" fill="#9E9688">₹15,000 (USDT)</text>
+    </g>
+  </g>
+
+  <!-- Bottom Forensic Telemetry Strip -->
+  <g transform="translate(24, 168)">
+    <rect width="432" height="124" rx="10" fill="#15120E" stroke="#3D3425" stroke-width="1"/>
+    
+    <g transform="translate(16, 16)">
+      <text x="0" y="12" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#C69A42">
+        SYNDICATE FINANCIAL CORRELATION ENGINE
+      </text>
+
+      <g transform="translate(0, 26)">
+        <rect width="124" height="60" rx="6" fill="#1C1813" stroke="#3D3425" stroke-width="0.8"/>
+        <text x="8" y="18" font-family="'JetBrains Mono', monospace" font-size="8" fill="#9E9688">VELOCITY ANOMALY</text>
+        <text x="8" y="38" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#E5394B">9.4 TX / Min</text>
+        <text x="8" y="50" font-family="'Outfit', sans-serif" font-size="8" fill="#FF8A96">Zero idle holding period</text>
+      </g>
+
+      <g transform="translate(136, 26)">
+        <rect width="124" height="60" rx="6" fill="#1C1813" stroke="#3D3425" stroke-width="0.8"/>
+        <text x="8" y="18" font-family="'JetBrains Mono', monospace" font-size="8" fill="#9E9688">KYC RISK STATE</text>
+        <text x="8" y="38" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="700" fill="#C69A42">Dormant Re-opened</text>
+        <text x="8" y="50" font-family="'Outfit', sans-serif" font-size="8" fill="#EAD6A0">Rented student identity</text>
+      </g>
+
+      <g transform="translate(272, 26)">
+        <rect width="124" height="60" rx="6" fill="#1C1813" stroke="#277653" stroke-width="0.8"/>
+        <text x="8" y="18" font-family="'JetBrains Mono', monospace" font-size="8" fill="#9E9688">FREEZE RECOMMENDATION</text>
+        <text x="8" y="38" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700" fill="#4ADE80">LEAP / NPCI Hold</text>
+        <text x="8" y="50" font-family="'Outfit', sans-serif" font-size="8" fill="#86EFAC">Automated 1930 alert sent</text>
+      </g>
+    </g>
+  </g>
+</svg>

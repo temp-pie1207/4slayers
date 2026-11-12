@@ -1,111 +1,85 @@
 import React from 'react';
-import { PhoneCall, Globe, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Shield, ArrowUpRight, ExternalLink } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-black border-t border-white/[0.08] text-white/50 py-16 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+    <footer className="border-t border-[#E5DCCB] dark:border-[#2E2820] bg-white dark:bg-[#0D0B09] text-[#242019] dark:text-[#FBF8F0] pt-16 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 pb-12 border-b border-[#E5DCCB] dark:border-[#2E2820]">
           
-          {/* Brand Column */}
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-6 h-6 flex items-center justify-center text-white">
-                <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5 stroke-current">
-                  <ellipse cx="16" cy="16" rx="13.5" ry="5.2" transform="rotate(-28 16 16)" strokeWidth="1.1" strokeOpacity="0.75" />
-                  <path d="M16 4.5L24 8V16C24 21.2 16 26.5 16 26.5C16 26.5 8 21.2 8 16V8L16 4.5Z" strokeWidth="1.25" />
-                  <circle cx="16" cy="16" r="1.5" fill="white" />
-                </svg>
+          {/* Brand Col */}
+          <div className="md:col-span-2 space-y-4">
+            <Link to="/" className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#906727] to-[#C69A42] flex items-center justify-center text-white shadow-sm">
+                <Shield className="w-4 h-4" />
               </div>
-              <span className="text-white font-medium text-sm tracking-[0.24em] uppercase font-sans">
+              <span className="font-display font-bold text-base tracking-[0.18em] uppercase text-[#242019] dark:text-[#FBF8F0]">
                 4SLAYERS
               </span>
-              <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-mono">
-                SENTINEL AI
-              </span>
-            </div>
-
-            <p className="text-xs sm:text-sm text-white/50 max-w-md font-light leading-relaxed mb-6">
-              A cinematic AI cybersecurity platform engineered to detect multi-channel deception before compromise occurs. 
-              Fusing text, VoIP telephony, phishing hosts, QR traps, and transaction endpoints into explainable intelligence.
+            </Link>
+            <p className="text-xs text-[#777064] dark:text-[#9E9688] leading-relaxed max-w-sm">
+              Multimodal AI fraud & scam detection platform. Correlating messages, URLs, phone numbers, QR codes, and payment signals into an explainable Scam DNA relationship graph.
             </p>
-
-            <div className="flex items-center gap-2 text-[11px] font-mono text-white/50 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-              <span>SCAN → ANALYZE → CONNECT → EXPLAIN → ACT</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#277653]">
+              <span className="w-2 h-2 rounded-full bg-[#277653]" />
+              <span>ALL DETECTION HEURISTICS OPERATIONAL</span>
             </div>
           </div>
 
-          {/* Platform Navigation */}
-          <div>
-            <h4 className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/60 mb-4">
-              Platform Modules
+          {/* Links Col 1: Platform */}
+          <div className="space-y-3">
+            <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#906727] dark:text-[#EAD6A0]">
+              Platform
             </h4>
-            <ul className="space-y-2.5 text-xs text-white/50 font-light">
-              <li>
-                <Link to="/scan" className="hover:text-white transition flex items-center gap-1">
-                  <span>Universal Threat Scanner</span>
-                  <span className="text-[10px]">↗</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard" className="hover:text-white transition">
-                  Threat Operations Console
-                </Link>
-              </li>
-              <li>
-                <Link to="/history" className="hover:text-white transition">
-                  Forensic Scan History
-                </Link>
-              </li>
-              <li>
-                <Link to="/reports" className="hover:text-white transition">
-                  Community Scam Registry
-                </Link>
-              </li>
-              <li>
-                <Link to="/intelligence" className="hover:text-white transition">
-                  Scam DNA Intelligence Hub
-                </Link>
-              </li>
+            <ul className="space-y-2 text-xs text-[#777064] dark:text-[#A8A095]">
+              <li><Link to="/app/scan" className="hover:text-[#C69A42] transition">Threat Scanner</Link></li>
+              <li><Link to="/app/scam-dna" className="hover:text-[#C69A42] transition">Scam DNA Explorer</Link></li>
+              <li><Link to="/app/network" className="hover:text-[#C69A42] transition">Fraud Network</Link></li>
+              <li><Link to="/app/intelligence" className="hover:text-[#C69A42] transition">Threat Intelligence</Link></li>
+              <li><Link to="/app/reports" className="hover:text-[#C69A42] transition">Community Reports</Link></li>
             </ul>
           </div>
 
-          {/* Emergency Cyber Helplines */}
-          <div>
-            <h4 className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/60 mb-4">
-              Emergency Hotlines
+          {/* Links Col 2: Workspace */}
+          <div className="space-y-3">
+            <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#906727] dark:text-[#EAD6A0]">
+              Workspace
             </h4>
-            <div className="space-y-3 text-xs">
-              <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.08]">
-                <div className="flex items-center gap-1.5 font-medium text-white mb-1">
-                  <PhoneCall className="w-3.5 h-3.5 text-white/70" />
-                  National Cyber Crime (India)
-                </div>
-                <div className="text-base font-light font-mono text-white">1930</div>
-                <p className="text-[10px] text-white/40 mt-0.5">Report within 2-hour Golden Hour window</p>
-              </div>
+            <ul className="space-y-2 text-xs text-[#777064] dark:text-[#A8A095]">
+              <li><Link to="/app" className="hover:text-[#C69A42] transition">Console Overview</Link></li>
+              <li><Link to="/app/scans" className="hover:text-[#C69A42] transition">Scan History</Link></li>
+              <li><Link to="/app/analytics" className="hover:text-[#C69A42] transition">Analytics & Trends</Link></li>
+              <li><Link to="/app/notifications" className="hover:text-[#C69A42] transition">Threat Alerts</Link></li>
+              <li><Link to="/app/settings" className="hover:text-[#C69A42] transition">User Settings</Link></li>
+            </ul>
+          </div>
 
-              <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.08]">
-                <div className="flex items-center gap-1.5 font-medium text-white mb-1">
-                  <Globe className="w-3.5 h-3.5 text-white/70" />
-                  Global Reporting
-                </div>
-                <p className="text-[11px] text-white/60 font-mono">USA: ic3.gov | UK: actionfraud.police.uk</p>
-              </div>
-            </div>
+          {/* Links Col 3: Trust & Governance */}
+          <div className="space-y-3">
+            <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#906727] dark:text-[#EAD6A0]">
+              Governance
+            </h4>
+            <ul className="space-y-2 text-xs text-[#777064] dark:text-[#A8A095]">
+              <li><a href="#privacy-section" className="hover:text-[#C69A42] transition">Privacy & Data Rights</a></li>
+              <li><a href="#explainable-ai-section" className="hover:text-[#C69A42] transition">Explainable AI Policy</a></li>
+              <li><a href="#safety-recommendations" className="hover:text-[#C69A42] transition">Safety Playbook</a></li>
+              <li><Link to="/app/settings" className="hover:text-[#C69A42] transition">GDPR JSON Export</Link></li>
+              <li><Link to="/app/settings" className="hover:text-[#C69A42] transition">Right-to-be-Forgotten</Link></li>
+            </ul>
           </div>
 
         </div>
 
-        <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-white/40 gap-4">
-          <p>© {new Date().getFullYear()} 4SLAYERS SENTINEL AI. Engineered for proactive security.</p>
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#777064] dark:text-[#9E9688]">
+          <div>
+            © {new Date().getFullYear()} 4SLAYERS // Golden Intelligence Platform. All rights reserved.
+          </div>
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-              Engines Operational
-            </span>
+            <span>Built for Digital Trust</span>
+            <span>•</span>
+            <span>Open Cyber Defense</span>
           </div>
         </div>
       </div>

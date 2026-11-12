@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ocrBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181512"/>
+      <stop offset="100%" stop-color="#0E0C0A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="480" height="320" rx="16" fill="url(#ocrBg)" stroke="#332B20" stroke-width="1.5"/>
+
+  <!-- Left: Scanned Document with OCR Bounding Boxes -->
+  <g transform="translate(24, 24)">
+    <!-- Document Paper -->
+    <rect width="210" height="272" rx="6" fill="#F4EDE0" stroke="#C69A42" stroke-width="1"/>
+    
+    <!-- Document Header -->
+    <rect x="20" y="16" width="170" height="18" fill="#1C1813" rx="2"/>
+    <text x="32" y="29" font-family="'Cinzel', serif" font-size="8" font-weight="700" fill="#FBF8F0">
+      CYBER CRIME CELL DEPT
+    </text>
+
+    <!-- Subtitle -->
+    <text x="45" y="46" font-family="'Space Grotesk', sans-serif" font-size="7" font-weight="600" fill="#B42332">
+      ARREST &amp; SEIZURE NOTICE
+    </text>
+
+    <!-- Fake Text lines -->
+    <line x1="20" y1="58" x2="190" y2="58" stroke="#9E9688" stroke-width="2"/>
+    <line x1="20" y1="66" x2="180" y2="66" stroke="#9E9688" stroke-width="2"/>
+    <line x1="20" y1="74" x2="190" y2="74" stroke="#9E9688" stroke-width="2"/>
+    
+    <!-- OCR Bounding Box 1 (Forged Emblem) -->
+    <rect x="20" y="88" width="80" height="42" fill="none" stroke="#B42332" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <rect x="20" y="80" width="60" height="10" fill="#B42332"/>
+    <text x="24" y="87" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700" fill="#FFFFFF">
+      FORGED SEAL
+    </text>
+    <circle cx="60" cy="109" r="14" fill="#B42332" fill-opacity="0.2" stroke="#B42332" stroke-width="1"/>
+
+    <!-- Document Text 2 -->
+    <line x1="20" y1="142" x2="190" y2="142" stroke="#9E9688" stroke-width="2"/>
+    <line x1="20" y1="150" x2="170" y2="150" stroke="#9E9688" stroke-width="2"/>
+
+    <!-- OCR Bounding Box 2 (Payment Demand) -->
+    <rect x="18" y="162" width="174" height="42" fill="#B42332" fill-opacity="0.12" stroke="#B42332" stroke-width="1.5"/>
+    <rect x="18" y="154" width="94" height="10" fill="#B42332"/>
+    <text x="22" y="161" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="700" fill="#FFFFFF">
+      EXTORTION DEMAND
+    </text>
+    <text x="26" y="176" font-family="'Space Grotesk', sans-serif" font-size="7" font-weight="700" fill="#B42332">
+      "Pay ₹1,50,000 Bail Bond via UPI"
+    </text>
+    <text x="26" y="190" font-family="'Space Grotesk', sans-serif" font-size="6" fill="#777064">
+      Instant settlement to cancel warrant
+    </text>
+
+    <!-- Forged Signature -->
+    <path d="M120,230 Q140,215 160,230 T180,225" fill="none" stroke="#1A1202" stroke-width="1.5"/>
+    <rect x="115" y="212" width="70" height="26" fill="none" stroke="#C69A42" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="120" y="244" font-family="'JetBrains Mono', monospace" font-size="6" fill="#906727">
+      [SIGNATURE ANOMALY]
+    </text>
+  </g>
+
+  <!-- Right: OCR Intelligence Findings -->
+  <g transform="translate(254, 24)">
+    <rect width="202" height="272" rx="10" fill="#15120E" stroke="#3D3425" stroke-width="1"/>
+    
+    <text x="16" y="24" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#EAD6A0">
+      OCR &amp; TAMPER ANALYSIS
+    </text>
+
+    <g transform="translate(14, 40)">
+      <rect width="174" height="52" rx="6" fill="#1C1813" stroke="#3D3425" stroke-width="0.8"/>
+      <text x="10" y="16" font-family="'JetBrains Mono', monospace" font-size="8" fill="#9E9688">EXTRACTED ENTITIES</text>
+      <text x="10" y="32" font-family="'Outfit', sans-serif" font-size="10" font-weight="600" fill="#FBF8F0">Notice: Sec 420 IPC</text>
+      <text x="10" y="44" font-family="'Outfit', sans-serif" font-size="9" fill="#B42332">Demanded: ₹1.5L Immediate</text>
+    </g>
+
+    <g transform="translate(14, 102)">
+      <rect width="174" height="66" rx="6" fill="#221114" stroke="#B42332" stroke-width="1"/>
+      <text x="10" y="16" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#FF8A96">FORENSIC DISCREPANCIES</text>
+      <text x="10" y="32" font-family="'Outfit', sans-serif" font-size="9" fill="#FCA5A5">• Font mismatch: Mixed Helvetica</text>
+      <text x="10" y="45" font-family="'Outfit', sans-serif" font-size="9" fill="#FCA5A5">• Low-res government seal artifact</text>
+      <text x="10" y="58" font-family="'Outfit', sans-serif" font-size="9" fill="#FCA5A5">• Indian courts never collect bail via UPI</text>
+    </g>
+
+    <g transform="translate(14, 180)">
+      <rect width="174" height="74" rx="6" fill="#1C1813" stroke="#C69A42" stroke-width="0.8"/>
+      <text x="10" y="16" font-family="'JetBrains Mono', monospace" font-size="8" fill="#C69A42">CLASSIFICATION</text>
+      <text x="10" y="34" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700" fill="#F3DFB0">Digital Arrest Scam</text>
+      <text x="10" y="50" font-family="'Outfit', sans-serif" font-size="9" fill="#9E9688">Correlated Syndicate: #CAMBODIA-CALL-09</text>
+      <text x="10" y="64" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#277653">STATUS: REPORT GENERATED</text>
+    </g>
+  </g>
+</svg>
