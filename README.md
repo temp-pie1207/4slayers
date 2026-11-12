@@ -1,7 +1,26 @@
 # 4SLAYERS — Multimodal AI Fraud & Scam Detection Platform
 
-> **"SEE THE PATTERN. STOP THE SCAM."**  
-> An award-winning digital product prototype built on the **Golden Intelligence** design language, connecting messages, links, calls, QR codes, and payment signals to uncover the patterns others miss.
+<div align="center">
+
+  [![Live Demo](https://img.shields.io/badge/Live_Demo-4SLAYERS_Online-C69A42?style=for-the-badge&logo=vercel&logoColor=white)](https://4slayers.vercel.app)
+  [![React 19](https://img.shields.io/badge/Frontend-React_19_%2B_Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+  [![FastAPI](https://img.shields.io/badge/Backend-FastAPI_%2B_Python-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+  [![Three.js](https://img.shields.io/badge/3D_Engine-Three.js_Scam_DNA-black?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind_v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
+  <p align="center">
+    <strong>"SEE THE PATTERN. STOP THE SCAM."</strong><br>
+    An award-winning digital intelligence platform built on the <strong>Golden Intelligence</strong> design language, connecting messages, links, calls, QR codes, and payment signals to uncover cross-channel fraud patterns that isolated systems miss.
+  </p>
+
+  <p align="center">
+    <a href="https://4slayers.vercel.app"><strong>⚡ Launch Live Production Platform (Vercel) ↗</strong></a> •
+    <a href="https://github.com/temp-pie1207/4slayers">GitHub Repository</a> •
+    <a href="https://naman-portfolio-theta.vercel.app">Author Portfolio</a>
+  </p>
+
+</div>
 
 ---
 
@@ -129,3 +148,20 @@ PYTHONPATH=. pytest backend/tests/test_api.py -v
 - **SSRF & Injection Prevention**: Safe parameter validation, strict pydantic typing, and safe URL scheme inspection.
 - **Ephemeral Upload Parsing**: Uploaded QR images are evaluated in volatile memory and never retained.
 - **GDPR & CCPA Rights**: Instant single-click structured JSON archive export (`GET /api/auth/export`) and irreversible data wipe (`DELETE /api/auth/purge-data`).
+
+---
+
+## ✦ Author & Engineering Credits
+
+**Naman Kashyap**
+- 🐙 GitHub: [@temp-pie1207](https://github.com/temp-pie1207)
+- 🌐 Portfolios: [Echo Verse](https://naman-portfolio-theta.vercel.app) • [Davies Editorial](https://davies-ten.vercel.app)
+- 💻 LeetCode: [Naman_1207](https://leetcode.com/u/Naman_1207/)
+- 📧 Email: [namankashyap484@gmail.com](mailto:namankashyap484@gmail.com)
+- 🏆 **Achievement**: 1st Place Winner, Hackathon AI Track
+
+---
+
+## ✦ License
+
+This project is open-source and released under the [MIT License](LICENSE).
